@@ -1,9 +1,9 @@
 const express = require('express')
 const app = express()
 const path = require('path');
-const dirPath = path.join(__dirname, '/../develop_Form');
+const dirPath = path.join(__dirname, '/../Front');
 
-//const filePath = path.join(__dirname, '/../develop_Form');
+//const filePath = path.join(__dirname, '/../Front');
 
 app.get('/finance', (req,res) => {
     res.sendFile(path.join(dirPath + '/finance.html'));
