@@ -3,6 +3,8 @@ const app = express()
 const path = require('path');
 const dirPath = path.join(__dirname, '/../Front');
 
+require('/Users/Duresa/Desktop/Site web/Finance/UTBM-Module-finances/Models/dbConfig');
+
 //const filePath = path.join(__dirname, '/../Front');
 
 app.get('/finance', (req,res) => {
