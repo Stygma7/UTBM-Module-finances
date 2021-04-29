@@ -5,7 +5,8 @@ const dirPath = path.join(__dirname, '/../Front');
 // set the view engine to ejs
 app.set('view engine', 'ejs');
 
-require(__dirname, '../Models/dbConfig');
+// require('/Users/Duresa/Desktop/Site web/Finance/UTBM-Module-finances/Models/dbConfig');
+require('../Models/dbConfig');
 
 //const filePath = path.join(__dirname, '/../Front');
 
@@ -19,6 +20,20 @@ app.get('/view', function(req,res){
     res.send(` ID: Antoine,    Name: MURE`);
     console.log("Entry displayed successfully");
   });
+// const DevisRoutes = require('/Users/Duresa/Desktop/Site web/Finance/UTBM-Module-finances/Routes/DevisController');
+const DevisRoutes = require('../Routes/DevisController');
+const bodyParser = require('body-parser');
+
+app.use(bodyParser.json());
+app.use('/devis', DevisRoutes);
+
+app.get('/finance', (req,res) => {
+    res.sendFile(path.join(dirPath + '/finance.html'));
+});
+
+app.get('/dashboard', (req,res) => {
+    res.sendFile(path.join(dirPath + '/dashboard.html'));
+});
 
 app.get('/view/:id', function(req,res){
     // db.serialize(()=>{
@@ -50,5 +65,5 @@ app.get('/add', function(req,res){
     res.send("New employee has been added into the database with ID = "+req.id+ " and Name = "+req.name);
 });
 app.listen(8080, () => {
-    console.log("Serveur à l'écoute")
+    console.log("Serveur à l'écoute : http://localhost:8080/finance")
 });

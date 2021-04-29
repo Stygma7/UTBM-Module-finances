@@ -11,6 +11,12 @@ const DevisModel = mongoose.model(
             type: Number,
             required: true
         },
+        date: {
+            type: Date,
+            default: Date.now
+        }
     },
     "Devis"
-)
+);
+
+module.exports = { DevisModel };
