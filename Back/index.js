@@ -3,11 +3,7 @@ const app = express();
 const path = require('path');
 const dirPath = path.join(__dirname, '/../Front');
 
-<<<<<<< HEAD
 require('/Users/Duresa/Desktop/Site web/Finance/UTBM-Module-finances/Models/dbConfig');
-=======
-require('../Models/dbConfig');
->>>>>>> d7e8c83e0df064018a8cc30021b7fe5752adb2bb
 
 //const filePath = path.join(__dirname, '/../Front');
 
