@@ -5,13 +5,10 @@ const dirPath = path.join(__dirname, '/../views');
 // set the view engine to ejs
 app.set('view engine', 'ejs');
 
-// require('/Users/Duresa/Desktop/Site web/Finance/UTBM-Module-finances/Models/dbConfig');
 require('../Models/dbConfig');
 
-//const filePath = path.join(__dirname, '/../Front');
 
 app.get('/', (req,res) => {
-    //res.sendFile(path.join(dirPath + '/finance.html'));
     res.render("finance", { username1: 'Antoine', username2: 'Duresa', username3: 'Matthieu', username4: 'Hugo' });
 });
 
@@ -20,7 +17,6 @@ app.get('/view', function(req,res){
     res.send(` ID: Antoine,    Name: MURE`);
     console.log("Entry displayed successfully");
   });
-// const DevisRoutes = require('/Users/Duresa/Desktop/Site web/Finance/UTBM-Module-finances/Routes/DevisController');
 const DevisRoutes = require('../Routes/DevisController');
 const bodyParser = require('body-parser');
 
