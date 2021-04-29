@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const dirPath = path.join(__dirname, '/../Front');
+const dirPath = path.join(__dirname, '/../views');
 // set the view engine to ejs
 app.set('view engine', 'ejs');
 
