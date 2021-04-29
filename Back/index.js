@@ -11,7 +11,7 @@ require(__dirname, '../Models/dbConfig');
 
 app.get('/', (req,res) => {
     //res.sendFile(path.join(dirPath + '/finance.html'));
-    res.render("finance", { username1: 'user1' , username2: 'user2' , username3: 'user3' });
+    res.render("finance", { username1: 'Antoine', username2: 'Duresa', username3: 'Matthieu', username4: 'Hugo' });
 });
 
 // View
