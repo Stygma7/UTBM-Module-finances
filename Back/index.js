@@ -2,14 +2,23 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const dirPath = path.join(__dirname, '/../Front');
+// set the view engine to ejs
+app.set('view engine', 'ejs');
 
 require(__dirname, '../Models/dbConfig');
 
 //const filePath = path.join(__dirname, '/../Front');
 
-app.get('/finance', (req,res) => {
-    res.sendFile(path.join(dirPath + '/finance.html'));
+app.get('/', (req,res) => {
+    //res.sendFile(path.join(dirPath + '/finance.html'));
+    res.render("finance", { username1: 'user1' , username2: 'user2' , username3: 'user3' });
 });
+
+// View
+app.get('/view', function(req,res){
+    res.send(` ID: Antoine,    Name: MURE`);
+    console.log("Entry displayed successfully");
+  });
 
 app.get('/view/:id', function(req,res){
     // db.serialize(()=>{
