@@ -18,7 +18,11 @@
   },
   "homepage": "https://github.com/Stygma7/UTBM-Module-finances#readme",
   "dependencies": {
+<<<<<<< HEAD
     "body-parser": "^1.19.0",
+=======
+    "chart.js": "^3.2.0",
+>>>>>>> d7e8c83e0df064018a8cc30021b7fe5752adb2bb
     "express": "^4.17.1",
     "materialize-css": "^1.0.0-rc.2",
     "mongodb": "^3.6.6",

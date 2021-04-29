@@ -3,7 +3,11 @@ const app = express();
 const path = require('path');
 const dirPath = path.join(__dirname, '/../Front');
 
+<<<<<<< HEAD
 require('/Users/Duresa/Desktop/Site web/Finance/UTBM-Module-finances/Models/dbConfig');
+=======
+require('../Models/dbConfig');
+>>>>>>> d7e8c83e0df064018a8cc30021b7fe5752adb2bb
 
 //const filePath = path.join(__dirname, '/../Front');
 
@@ -15,6 +19,10 @@ app.use('/devis', DevisRoutes);
 
 app.get('/finance', (req,res) => {
     res.sendFile(path.join(dirPath + '/finance.html'));
+});
+
+app.get('/dashboard', (req,res) => {
+    res.sendFile(path.join(dirPath + '/dashboard.html'));
 });
 
 app.get('/view/:id', function(req,res){
@@ -47,5 +55,5 @@ app.get('/add', function(req,res){
     res.send("New employee has been added into the database with ID = "+req.id+ " and Name = "+req.name);
 });
 app.listen(8080, () => {
-    console.log("Serveur à l'écoute")
+    console.log("Serveur à l'écoute : http://localhost:8080/finance")
 });
