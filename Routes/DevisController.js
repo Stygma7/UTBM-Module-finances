@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-const { DevisModel } = require('/Users/Duresa/Desktop/Site web/Finance/UTBM-Module-finances/Models/DevisModel');
+// const { DevisModel } = require('/Users/Duresa/Desktop/Site web/Finance/UTBM-Module-finances/Models/DevisModel');
+const { DevisModel } = require('../Models/DevisModel');
 
 router.get('/', (req, res) => {
     DevisModel.find((err, docs) => {

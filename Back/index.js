@@ -3,11 +3,13 @@ const app = express();
 const path = require('path');
 const dirPath = path.join(__dirname, '/../Front');
 
-require('/Users/Duresa/Desktop/Site web/Finance/UTBM-Module-finances/Models/dbConfig');
+// require('/Users/Duresa/Desktop/Site web/Finance/UTBM-Module-finances/Models/dbConfig');
+require('../Models/dbConfig');
 
 //const filePath = path.join(__dirname, '/../Front');
 
-const DevisRoutes = require('/Users/Duresa/Desktop/Site web/Finance/UTBM-Module-finances/Routes/DevisController');
+// const DevisRoutes = require('/Users/Duresa/Desktop/Site web/Finance/UTBM-Module-finances/Routes/DevisController');
+const DevisRoutes = require('../Routes/DevisController');
 const bodyParser = require('body-parser');
 
 app.use(bodyParser.json());
