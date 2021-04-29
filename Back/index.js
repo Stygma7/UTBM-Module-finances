@@ -19,8 +19,14 @@ app.get('/view', function(req,res){
   });
 const DevisRoutes = require('../Routes/DevisController');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const cors = require('cors');
+
+mongoose.set('useFindAndModify', false);
 
 app.use(bodyParser.json());
+
+app.use(cors({origin: 'https://localhost:3000'}));
 app.use('/devis', DevisRoutes);
 
 app.get('/finance', (req,res) => {
