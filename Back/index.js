@@ -3,9 +3,15 @@ const app = express();
 const path = require('path');
 const dirPath = path.join(__dirname, '/../Front');
 
-require(__dirname, '../Models/dbConfig');
+require('/Users/Duresa/Desktop/Site web/Finance/UTBM-Module-finances/Models/dbConfig');
 
 //const filePath = path.join(__dirname, '/../Front');
+
+const DevisRoutes = require('/Users/Duresa/Desktop/Site web/Finance/UTBM-Module-finances/Routes/DevisController');
+const bodyParser = require('body-parser');
+
+app.use(bodyParser.json());
+app.use('/devis', DevisRoutes);
 
 app.get('/finance', (req,res) => {
     res.sendFile(path.join(dirPath + '/finance.html'));
