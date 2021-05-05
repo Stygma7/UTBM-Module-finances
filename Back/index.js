@@ -6,10 +6,10 @@ const dirPath = path.join(__dirname, '/../views');
 app.set('view engine', 'ejs');
 
 require('../Models/dbConfig');
-
+require('../Routes/DevisController');
 
 app.get('/', (req,res) => {
-    res.render("finance", { username1: 'Antoine', username2: 'Duresa', username3: 'Matthieu', username4: 'Hugo' });
+    res.render("finance", { username1: 'aa', username2: 'Duresa', username3: 'Matthieu', username4: 'Hugo' });
 });
 
 // View
@@ -20,17 +20,17 @@ app.get('/view', function(req,res){
 const DevisRoutes = require('../Routes/DevisController');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const cors = require('cors');
+//const cors = require('cors');
 
 mongoose.set('useFindAndModify', false);
 
 app.use(bodyParser.json());
 
-app.use(cors({origin: 'https://localhost:3000'}));
+//app.use(cors({origin: 'https://localhost:3000'}));
 app.use('/devis', DevisRoutes);
 
 app.get('/finance', (req,res) => {
-    res.sendFile(path.join(dirPath + '/finance.html'));
+    res.sendFile(path.join(dirPath + '/finance.ejs'));
 });
 
 app.get('/dashboard', (req,res) => {
