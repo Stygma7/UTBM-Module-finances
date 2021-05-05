@@ -24,7 +24,7 @@ router.get('/', (req, res) => {
         if (!err) {
             // res.send(docs);
             res.render("finance", { devis: devis });
-            console.log(devis[0].client);
+            //console.log(devis[0].client);
         }
         else console.log("Error to get data : " + err);
     })
@@ -33,8 +33,9 @@ router.get('/', (req, res) => {
 // add
 router.post('/', (req, res) => {
     console.log([req.body.nomClient]);
+    console.log("Test id devisController :",req.body.id)
     const newRecord = new DevisModel({
-        client: "Toto",
+        client: req.body.id,
         TVA: 30
     });
 

@@ -22,16 +22,7 @@ app.get('/', (req,res) => {
     res.render("finance", { username1: 'aa', username2: 'Duresa', username3: 'Matthieu', username4: 'Hugo' });
 });
 
-app.post('/add', (req,res) => {
-    console.log("Test id :",[req.body.id])
-    res.send("OK");
-})
 
-// View
-app.get('/view', function(req,res){
-    res.send(` ID: Antoine,    Name: MURE`);
-    console.log("Entry displayed successfully");
-  });
 const DevisRoutes = require('../Routes/DevisController');
 //const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
