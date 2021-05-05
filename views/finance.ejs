@@ -42,23 +42,12 @@ Possibilité d'ajouter des articles
 </nav>
 
 <div class="container">
-
-    <div class="row">
-        <div class="col s12">
-            <div class="row">
-                <form action="/devis" method="POST">
-                    <input type ="text" id = 'empID' name="id" required>
-                </form>
-            </div>
-        </div>
-    </div>
-
+    
     <h3>Nouveau devis</h3>
-    <br>
     <div class="row">
         <div class="col s12">
-            <div class="row">
-                <form action="/devis/" method="POST">
+            <form action="/devis" method="POST">
+                <div class="row">
                     <div class="input-field col s12">
                         <select>
                             <option value="" disabled selected>Sélectionner un destinataire</option>
@@ -69,68 +58,63 @@ Possibilité d'ajouter des articles
                         </select>
                         <label>Destinataire</label>
                     </div>
-                </form>
-            </div>
+                </div>
+                <h5>Informations</h5>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <label for="birthdate">Durée de validité</label>
+                        <br>
+                        <input type="date" name="date_val" class="datepicker">
+                    </div>
+                </div>
+                <h5>Articles</h5>
+                <div class="row">
+                    <div class="input-field col s2">
+                        <input type="number" id="autocomplete-quantite"  name="quantite" class="autocomplete" >
+                        <label for="quantite">Quantité</label>
+                    </div>
+                    <div class="input-field col s2">
+                        <input type="text" id="autocomplete-prix"  name="prix" class="autocomplete" >
+                        <label for="prix">Prix</label>
+                    </div>
+                    <div class="input-field col s2">
+                        <input value="20" type="number" id="autocomplete-tva"  name="tva" class="autocomplete" >
+                        <label class="active" for="tva">TVA</label>
+                    </div>
+                    <div class="input-field col s2">
+                        <input type="number" id="autocomplete-reduction"  name="reduction" class="autocomplete" >
+                        <label for="reduction">Réduction</label>
+                    </div><div class="input-field col s2">
+                        <input type="number" id="autocomplete-total-ht"  name="total-ht" class="autocomplete" >
+                        <label for="total-ht">Total HT</label>
+                    </div>
+                    <div class="input-field col s2">
+                        <input type="number" id="autocomplete-total-ttc"  name="total-ttc" class="autocomplete" >
+                        <label for="total-ttc">Total TTC</label>
+                    </div>
+                    <div class="input-field col s12">          
+                        <textarea id="description" class="materialize-textarea"></textarea>
+                        <label for="description">Description</label>
+                      </div>
+                </div>
+                <div class="row">    
+                    <div class="rail mt">          
+                        <textarea id="description" class="materialize-textarea"></textarea>
+                        <label for="description">Description</label>
+                      </div>
+                </div>
+            </form>
         </div>
     </div>
+    <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+        <i class="material-icons right">send</i>
+    </button>
 
-    <div class="row">
-        <div class="col s12">
-            <div class="row">
-                <form action="/devis" method="POST">
-                    <div class="input-field col s12">
-                        <i class="material-icons prefix">textsms</i>
+ 
                         <input type="text" id="autocomplete-input"  name="nomClient" class="autocomplete" >
                         <label for="autocomplete-input">Autocomplete</label>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
 
-    <div class="row">
-        <form class="col s12">
-            <div class="row">
-                <div class="input-field col s6">
-                    <input placeholder="Placeholder" id="first_name" type="text" class="validate">
-                    <label for="first_name">First Name</label>
-                </div>
-                <div class="input-field col s6">
-                    <input id="last_name" type="text" class="validate">
-                    <label for="last_name">Last Name</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s12">
-                    <input disabled value="I am not editable" id="disabled" type="text" class="validate">
-                    <label for="disabled">Disabled</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s12">
-                    <input id="password" type="password" class="validate">
-                    <label for="password">Password</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s12">
-                    <input id="email" type="email" class="validate">
-                    <label for="email">Email</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col s12">
-                    This is an inline input field:
-                    <div class="input-field inline">
-                        <input id="email_inline" type="email" class="validate">
-                        <label for="email_inline">Email</label>
-                        <span class="helper-text" data-error="wrong" data-success="right">Helper text</span>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
-    <br>
+   
 
     <div>
         <form action="#">
