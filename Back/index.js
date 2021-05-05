@@ -2,8 +2,18 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const dirPath = path.join(__dirname, '/../views');
+const bodyParser = require('body-parser');
+
+
 // set the view engine to ejs
 app.set('view engine', 'ejs');
+
+
+const middlewares = [
+  // ...
+  bodyParser.urlencoded({ extended: true })
+];
+app.use(middlewares);
 
 require('../Models/dbConfig');
 
@@ -12,13 +22,18 @@ app.get('/', (req,res) => {
     res.render("finance", { username1: 'Antoine', username2: 'Duresa', username3: 'Matthieu', username4: 'Hugo' });
 });
 
+app.post('/add', (req,res) => {
+    console.log("Test id :",[req.body.id])
+    res.send("OK");
+})
+
 // View
 app.get('/view', function(req,res){
     res.send(` ID: Antoine,    Name: MURE`);
     console.log("Entry displayed successfully");
   });
 const DevisRoutes = require('../Routes/DevisController');
-const bodyParser = require('body-parser');
+//const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
@@ -53,19 +68,19 @@ app.get('/view/:id', function(req,res){
 });
 
 // Insert
-app.get('/add', function(req,res){
-    // db.serialize(()=>{
-    //     db.run('INSERT INTO emp(id,name) VALUES(?,?)', [req.body.id, req.body.name], function(err) {
-    //         if (err) {
-    //             return console.log(err.message);
-    //         }
-    //         console.log("New employee has been added");
-    //         res.send("New employee has been added into the database with ID = "+req.body.id+ " and Name = "+req.body.name);
-    //     });
-    // });
-    console.log("New employee has been added");
-    res.send("New employee has been added into the database with ID = "+req.id+ " and Name = "+req.name);
-});
+// app.get('/add', function(req,res){
+//     // db.serialize(()=>{
+//     //     db.run('INSERT INTO emp(id,name) VALUES(?,?)', [req.body.id, req.body.name], function(err) {
+//     //         if (err) {
+//     //             return console.log(err.message);
+//     //         }
+//     //         console.log("New employee has been added");
+//     //         res.send("New employee has been added into the database with ID = "+req.body.id+ " and Name = "+req.body.name);
+//     //     });
+//     // });
+//     console.log("New employee has been added");
+//     res.send("New employee has been added into the database with ID = "+req.id+ " and Name = "+req.name);
+// });
 app.listen(8080, () => {
     console.log("Serveur à l'écoute : http://localhost:8080/")
 });
