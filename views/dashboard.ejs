@@ -9,16 +9,35 @@
     <script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
 </head>
 <body>
-    <div style="width: 50%">
-        <canvas id="myChart" width="400" height="400"></canvas>
+    <nav>
+        <div class="nav-wrapper teal darken-1">
+            <a href="#!" class="brand-logo"><p class="material-icons">insert_chart</p>STATISTIQUES</a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="./devis"><i class="material-icons">calculate</i></a></li>
+                <!-- <li><a href="collapsible.html"><i class="material-icons">refresh</i></a></li>
+                <li><a href="mobile.html"><i class="material-icons">more_vert</i></a></li> -->
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div style="width: 60%">
+            <canvas id="myChart" width="400" height="400"></canvas>
+        </div>
+        
+        <div style="width: 60%">
+            <canvas id="myChart2" width="400" height="400"></canvas>
+        </div>
     </div>
+    
     <script>
-        Chart.defaults.plugins.title.text = 'Graphique';
         Chart.defaults.plugins.title.display = true;
-    </script>
-    <script>
+        
         const data = [9, 6, 12, 7, 9, 15];
-        const labels = ['Devis', 'Factures', 'Clients', 'Green', 'Purple', 'Orange'];
+        const labels = ['2021-01', '2021-02', '2021-03', '2021-04', '2021-05', '2021-06'];
+        getData()
+        
+        Chart.defaults.plugins.title.text = 'Graphique';
         var ctx = document.getElementById('myChart').getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'line',
@@ -26,23 +45,7 @@
                 labels: labels,
                 datasets: [{
                     label: 'Devis réalisés',
-                    // data: [12, 19, 3, 5, 2, 3],
-                    // backgroundColor: [
-                    //     'rgba(255, 99, 132, 0.2)',
-                    //     'rgba(54, 162, 235, 0.2)',
-                    //     'rgba(255, 206, 86, 0.2)',
-                    //     'rgba(75, 192, 192, 0.2)',
-                    //     'rgba(153, 102, 255, 0.2)',
-                    //     'rgba(255, 159, 64, 0.2)'
-                    // ],
-                    // borderColor: [
-                    //     'rgba(255, 99, 132, 1)',
-                    //     'rgba(54, 162, 235, 1)',
-                    //     'rgba(255, 206, 86, 1)',
-                    //     'rgba(75, 192, 192, 1)',
-                    //     'rgba(153, 102, 255, 1)',
-                    //     'rgba(255, 159, 64, 1)'
-                    // ],
+                    data: data,
                     borderColor: 'rgb(75, 192, 192)',
                     // tension: 0.1,
                     // borderWidth: 2
@@ -57,6 +60,42 @@
             }
         });
 
+        Chart.defaults.plugins.title.text = 'Graphique2';
+        var ctx = document.getElementById('myChart2').getContext('2d');
+        var myChart2 = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Devis réalisés',
+                    data: data,
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgb(255, 99, 132)',
+                    // tension: 0.1,
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        
+        function getData() {
+            // alert('getData');
+            
+            // data.forEach(devi => {
+            //     alert (devi) 
+            // })
+            
+            // devis.forEach(devi => {
+            //     alert (devi.client)
+            // })
+        }
 
     </script>
 </body>
