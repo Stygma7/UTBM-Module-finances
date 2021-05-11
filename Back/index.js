@@ -18,9 +18,9 @@ app.use(middlewares);
 require('../Models/dbConfig');
 require('../Routes/DevisController');
 
-app.get('/', (req,res) => {
-    res.render("finance", { username1: 'aa', username2: 'Duresa', username3: 'Matthieu', username4: 'Hugo' });
-});
+// app.get('/', (req,res) => {
+//     res.render("finance", { username1: 'aa', username2: 'Duresa', username3: 'Matthieu', username4: 'Hugo' });
+// });
 
 
 const DevisRoutes = require('../Routes/DevisController');
@@ -33,11 +33,11 @@ mongoose.set('useFindAndModify', false);
 app.use(bodyParser.json());
 
 //app.use(cors({origin: 'https://localhost:3000'}));
-app.use('/devis', DevisRoutes);
+app.use('/', DevisRoutes);
 
-app.get('/finance', (req,res) => {
-    res.sendFile(path.join(dirPath + '/finance.ejs'));
-});
+// app.get('/finance', (req,res) => {
+//     res.sendFile(path.join(dirPath + '/finance.ejs'));
+// });
 
 app.get('/dashboard', (req,res) => {
     res.sendFile(path.join(dirPath + '/dashboard.html'));

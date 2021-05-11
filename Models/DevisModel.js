@@ -16,7 +16,11 @@ const DevisModel = mongoose.model(
             default: Date.now
         }
     },
-    "Devis",
+    "Devis"
+);
+
+const FactureModel = mongoose.model(
+    "Facture",
     {
         client2: {
             type: String,
@@ -33,5 +37,4 @@ const DevisModel = mongoose.model(
     },
     "Facture"
 );
-
-module.exports = { DevisModel };
+module.exports = { DevisModel , FactureModel };
