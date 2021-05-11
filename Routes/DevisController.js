@@ -20,7 +20,7 @@ const { FactureModel } = require('../Models/DevisModel');
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-router.get('/finance', (req, res) => {
+router.get('/devis', (req, res) => {
     DevisModel.find((err, devis) => {
         if (!err) {
             // res.send(docs);
@@ -42,7 +42,7 @@ router.get('/dashboard', (req, res) => {
     })
 });
 // add
-router.post('/', (req, res) => {
+router.post('/devis', (req, res) => {
     console.log([req.body.nomClient]);
     console.log("Test id devisController :",req.body.nomClient)
     const newRecord = new DevisModel({

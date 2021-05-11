@@ -7,12 +7,36 @@ const DevisModel = mongoose.model(
             type: String,
             required: true
         },
-        Quantite: {
-            type: Number
-        },
-        TVA: {
+        quantite: {
             type: Number,
             required: true
+        },
+        prix: {
+            type: Number,
+            required: true
+        },
+        tva: {
+            type: Number,
+            required: true
+        },
+        reduction: {
+            type: Number,
+            min: 0,
+            required: true
+        },
+        totalHT: {
+            type: Number,
+            min: 0,
+            required: true
+        },
+        totalTTC: {
+            type: Number,
+            min: 0,
+            required: true
+        },
+        description: {
+            type: String,
+            required: false
         },
         date: {
             type: Date,
