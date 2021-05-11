@@ -19,44 +19,14 @@
         $(document).ready(function() {
             $('select').material_select();
 
-            
-            $('.add-item').click(function() {
-                $('.collection').append(
-                    // '<li class="collection-item">item<a href="#!" class="remove-item secondary-content"><i class="material-icons mat-red-text">remove_circle_outline</i></a></li>'
-                    '<li class="collection-item"><div class="row"><div class="input-field col s2"><input type="number" id="autocomplete-quantite"  name="quantite" class="autocomplete" ><label for="quantite">Quantité</label></div><div class="input-field col s2"><input type="text" id="autocomplete-prix"  name="prix" class="autocomplete" ><label for="prix">Prix</label></div><div class="input-field col s2"><input value="20" type="number" id="autocomplete-tva"  name="tva" class="autocomplete" ><label class="active" for="tva">TVA</label></div><div class="input-field col s2"><input type="number" id="autocomplete-reduction"  name="reduction" class="autocomplete" ><label for="reduction">Réduction</label></div><div class="input-field col s2"><input type="number" id="autocomplete-total-ht"  name="total-ht" class="autocomplete" ><label for="total-ht">Total HT</label></div><div class="input-field col s2"><input type="number" id="autocomplete-total-ttc"  name="total-ttc" class="autocomplete" ><label for="total-ttc">Total TTC</label></div><div class="input-field col s12"><textarea id="description" class="materialize-textarea"></textarea><label for="description">Description</label></div></div><a href="#!" class="remove-item secondary-content"><i class="material-icons mat-red-text">remove_circle_outline</i></a></li>'
-                );
-            });
-            $('.collection').on('click', '.remove-item', function() {
-                $(this).closest('li').remove();
-            }); 
-
-            // function calculateTotal()
-            // {
-            // let unit_price={
-            //     sugar: 22,
-            //     butter: 12,
-            //     eggs: 2,
-            //     vanilla:43    
-            // };
-            // let item_price={}
-            
-            // item_price.sugar = ($("#qty_sugar").val() * unit_price.sugar )
-            // $("#price_sugar").val(item_price.sugar);
-            
-            // }
-            // $(function()
-            // {
-            //     $(".qty").on("change keyup",calculateTotal)
-            // })
-
             function calculateTotal()
             {
             
             //item_price.sugar = ($("#autocomplete-quantite").val() * $("#autocomplete-prix").val() )
-            var prixHT = ($("#autocomplete-quantite").val() * $("#autocomplete-prix").val() - $("#autocomplete-reduction").val() )
-            $("#autocomplete-total-ht").val(prixHT);
-            var prixTTC =  prixHT + (prixHT * ($("#autocomplete-tva").val() / 100))
-            $("#autocomplete-total-ttc").val(prixTTC);
+            var prixHT = ($("#quantite").val() * $("#prix").val() - $("#reduction").val() )
+            $("#total-ht").val(prixHT);
+            var prixTTC =  prixHT + (prixHT * ($("#tva").val() / 100))
+            $("#total-ttc").val(prixTTC);
             }
             $(function()
             {
@@ -68,26 +38,6 @@
 
 
 </script>
-
-
-
-
-
-
-
-
-    <!-- <meta name = "viewport" content = "width = device-width, initial-scale = 1">
-
-    <link rel = "stylesheet" href = "https://fonts.googleapis.com/icon?family=Material+Icons">
-
-    <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
-
-    <script src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>
-
-    <script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
-
-    <link rel="stylesheet" href="materialize-collection-actions-VERSION.min.css">
-    <script src="materialize-collection-actions-VERSION.min.js"></script> -->
 
 
 </head>
@@ -110,60 +60,6 @@ Possibilité d'ajouter des articles
         </ul>
     </div>
 </nav>
-
-<!-- <div class="row">
-    <div class="col-6">
-        1. Powdered white sugar (cups)
-    </div>
-    <div class="col-3">
-        <input type="number" value="0" class="qty" id="qty_sugar" />
-    </div>
-    <div class="col-2">
-        <input type="number" readonly value="0" id="price_sugar" />
-    </div>
-</div> -->
-
-<div class="section container">
-    <ul class="collection">
-      <li class="collection-item">
-        <div class="row">
-            <div class="input-field col s2">
-                <input type="number" id="autocomplete-quantite"  name="quantite" class="autocomplete" >
-                <label for="quantite">Quantité</label>
-            </div>
-            <div class="input-field col s2">
-                <input type="text" id="autocomplete-prix"  name="prix" class="autocomplete" >
-                <label for="prix">Prix</label>
-            </div>
-            <div class="input-field col s2">
-                <input value="20" type="number" id="autocomplete-tva"  name="tva" class="autocomplete" >
-                <label class="active" for="tva">TVA</label>
-            </div>
-            <div class="input-field col s2">
-                <input type="number" id="autocomplete-reduction"  name="reduction" class="autocomplete" >
-                <label for="reduction">Réduction</label>
-
-            </div><div class="input-field col s2">
-                <input type="number" readonly value="0" id="autocomplete-total-ht"  name="total-ht" class="autocomplete" >
-                <label for="total-ht">Total HT</label>
-            </div>
-
-            <div class="input-field col s2">
-                <input type="number" readonly value="0" id="autocomplete-total-ttc"  name="total-ttc" class="autocomplete" >
-                <label for="total-ttc">Total TTC</label>
-            </div>
-            <div class="input-field col s12">          
-                <textarea id="description" class="materialize-textarea"></textarea>
-                <label for="description">Description</label>
-            </div>
-        </div>
-        <a href="#!" class="remove-item secondary-content">
-        <i class="material-icons mat-red-text">remove_circle_outline</i>
-      </a>
-      </li>
-    </ul>
-    <button class="btn add-item">add</button>
-  </div>
 
 <div class="container">
     
@@ -194,26 +90,26 @@ Possibilité d'ajouter des articles
                 <h5>Articles</h5>
                 <div class="row">
                     <div class="input-field col s2">
-                        <input type="number" id="autocomplete-quantite"  name="quantite" class="autocomplete" >
+                        <input type="number" id="quantite"  name="quantite" class="autocomplete" >
                         <label for="quantite">Quantité</label>
                     </div>
                     <div class="input-field col s2">
-                        <input type="text" id="autocomplete-prix"  name="prix" class="autocomplete" >
+                        <input type="text" id="prix"  name="prix" class="autocomplete" >
                         <label for="prix">Prix</label>
                     </div>
                     <div class="input-field col s2">
-                        <input value="20" type="number" id="autocomplete-tva"  name="tva" class="autocomplete" >
+                        <input value="20" type="number" id="tva"  name="tva" class="autocomplete" >
                         <label class="active" for="tva">TVA</label>
                     </div>
                     <div class="input-field col s2">
-                        <input type="number" id="autocomplete-reduction"  name="reduction" class="autocomplete" >
+                        <input type="number" id="reduction"  name="reduction" class="autocomplete" >
                         <label for="reduction">Réduction</label>
                     </div><div class="input-field col s2">
-                        <input type="number" id="autocomplete-total-ht"  name="total-ht" class="autocomplete" >
+                        <input type="number" readonly value="0" id="total-ht"  name="total-ht" class="autocomplete" >
                         <label for="total-ht">Total HT</label>
                     </div>
                     <div class="input-field col s2">
-                        <input type="number" id="autocomplete-total-ttc"  name="total-ttc" class="autocomplete" >
+                        <input type="number" readonly value="0" id="total-ttc"  name="total-ttc" class="autocomplete" >
                         <label for="total-ttc">Total TTC</label>
                     </div>
                     <div class="input-field col s12">          
