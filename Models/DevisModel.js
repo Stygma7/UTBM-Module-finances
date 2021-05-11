@@ -7,6 +7,9 @@ const DevisModel = mongoose.model(
             type: String,
             required: true
         },
+        Quantite: {
+            type: Number
+        },
         TVA: {
             type: Number,
             required: true

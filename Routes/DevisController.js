@@ -31,6 +31,16 @@ router.get('/finance', (req, res) => {
     })
 });
 
+router.get('/dashboard', (req, res) => {
+    DevisModel.find((err, devis) => {
+        if (!err) {
+            // res.send(docs);
+            res.render("dashboard", { devis: devis });
+            //console.log(devis[0].client);
+        }
+        else console.log("Error to get data : " + err);
+    })
+});
 // add
 router.post('/', (req, res) => {
     console.log([req.body.nomClient]);

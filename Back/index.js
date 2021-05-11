@@ -39,9 +39,9 @@ app.use('/', DevisRoutes);
 //     res.sendFile(path.join(dirPath + '/finance.ejs'));
 // });
 
-app.get('/dashboard', (req,res) => {
-    res.sendFile(path.join(dirPath + '/dashboard.html'));
-});
+// app.get('/dashboard', (req,res) => {
+//     res.sendFile(path.join(dirPath + '/dashboard.html'));
+// });
 
 app.get('/view/:id', function(req,res){
     // db.serialize(()=>{
@@ -73,5 +73,5 @@ app.get('/view/:id', function(req,res){
 //     res.send("New employee has been added into the database with ID = "+req.id+ " and Name = "+req.name);
 // });
 app.listen(8080, () => {
-    console.log("Serveur à l'écoute : http://localhost:8080/")
+    console.log("Serveur à l'écoute : http://localhost:8080/finance")
 });
