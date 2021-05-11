@@ -36,7 +36,6 @@ const DevisModel = mongoose.model(
         },
         description: {
             type: String,
-            required: false
         },
         date: {
             type: Date,

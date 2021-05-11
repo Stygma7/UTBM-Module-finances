@@ -43,16 +43,24 @@ router.get('/dashboard', (req, res) => {
 });
 // add
 router.post('/devis', (req, res) => {
-    console.log([req.body.nomClient]);
-    console.log("Test id devisController :",req.body.nomClient)
+    console.log([req.body.description]);
+    console.log("Test id devisController :",req.body.selectClient)
     const newRecord = new DevisModel({
-        client: req.body.nomClient,
-        TVA: 30
+        client: req.body.selectClient,
+        quantite: req.body.quantite,
+        prix: req.body.prix,
+        tva: req.body.tva,
+        reduction: req.body.reduction,
+        totalHT: req.body.total_ht,
+        totalTTC: req.body.total_ttc,
+        description: req.body.description,
+        date: req.body.date_val
     });
-    newRecord.save((err, docs) => {
-        if (!err) res.send(docs);
-        else console.log('Erreur création nouvelles données :' + err);
-    });
+    res.send(newRecord);
+    // newRecord.save((err, docs) => {
+    //     if (!err) res.send(docs);
+    //     else console.log('Erreur création nouvelles données :' + err);
+    // });
 });
 
 router.post('/factures', (req, res) => {
