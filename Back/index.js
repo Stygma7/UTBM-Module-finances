@@ -18,9 +18,9 @@ app.use(middlewares);
 require('../Models/dbConfig');
 require('../Routes/DevisController');
 
-app.get('/', (req,res) => {
-    res.render("finance", { username1: 'aa', username2: 'Duresa', username3: 'Matthieu', username4: 'Hugo' });
-});
+// app.get('/', (req,res) => {
+//     res.render("finance", { username1: 'aa', username2: 'Duresa', username3: 'Matthieu', username4: 'Hugo' });
+// });
 
 
 const DevisRoutes = require('../Routes/DevisController');
@@ -33,15 +33,15 @@ mongoose.set('useFindAndModify', false);
 app.use(bodyParser.json());
 
 //app.use(cors({origin: 'https://localhost:3000'}));
-app.use('/devis', DevisRoutes);
+app.use('/', DevisRoutes);
 
-app.get('/finance', (req,res) => {
-    res.sendFile(path.join(dirPath + '/finance.ejs'));
-});
+// app.get('/finance', (req,res) => {
+//     res.sendFile(path.join(dirPath + '/finance.ejs'));
+// });
 
-app.get('/dashboard', (req,res) => {
-    res.sendFile(path.join(dirPath + '/dashboard.html'));
-});
+// app.get('/dashboard', (req,res) => {
+//     res.sendFile(path.join(dirPath + '/dashboard.html'));
+// });
 
 app.get('/view/:id', function(req,res){
     // db.serialize(()=>{
@@ -73,5 +73,5 @@ app.get('/view/:id', function(req,res){
 //     res.send("New employee has been added into the database with ID = "+req.id+ " and Name = "+req.name);
 // });
 app.listen(8080, () => {
-    console.log("Serveur à l'écoute : http://localhost:8080/")
+    console.log("Serveur à l'écoute : http://localhost:8080/finance")
 });
