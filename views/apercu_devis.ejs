@@ -50,22 +50,59 @@ Arcticle : quantité, prix, tva, réduction, total HT, total TTC, description
 Possibilité d'ajouter des articles 
 -->
 
-<nav>
-    <div class="nav-wrapper teal darken-1">
-        <a href="#!" class="brand-logo"><p class="material-icons">calculate</p>FINANCES</a>
-        <ul class="right hide-on-med-and-down">
-            <li><a href="./dashboard"><i class="material-icons">insert_chart</i></a></li>
-            <li><a href="collapsible.html"><i class="material-icons">refresh</i></a></li>
-            <li><a href="mobile.html"><i class="material-icons">more_vert</i></a></li>
-        </ul>
-    </div>
-</nav>
 
 <div class="container">
     
-    <h3>Hello World</h3>
+    <h4>DEVIS</h4>
+
+    <h6>VENDEUR :</h6>
     <h4><%= devi.client %></h4>
     
+    <table>
+        <thead>
+          <tr>
+              <th>Date de fin de validité</th>
+              <td><%= devi.date %></td>
+          </tr>
+        </thead>
+
+    <table>
+        <thead>
+          <tr>
+              <th>Description</th>
+              <th>Quantité</th>
+              <th>Prix unitaire HT</th>
+              <th>Total HT</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td><%= devi.description %></td>
+            <td><%= devi.quantite %></td>
+            <td><%= devi.prix %></td>
+            <td><%= devi.totalHT %></td>
+          </tr>
+        </tbody>
+      </table>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Total HT</th>
+                <td><%= devi.totalHT %> €</td>
+            </tr>
+            <tr>
+                <th>TVA</th>
+                <td><%= devi.tva %> %</td>
+            </tr>
+            <tr>
+                <th>Total TTC</th>
+                <td><%= devi.totalTTC %> €</td>
+            </tr>
+        </tbody>
+    </table>
+
 </div>
 
 </body>
