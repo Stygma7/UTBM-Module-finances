@@ -53,55 +53,128 @@ Possibilité d'ajouter des articles
 
 <div class="container">
     
-    <h4>DEVIS</h4>
+    <div class="row">
+        <div class="col s12">
+            <div class="row">
+                <div class="col s12">
+                    <center><h4>DEVIS</h4></center>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s4">
+                    <h5>VENDEUR :</h5>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th>MedicHome</th>
+                            </tr>
+                            <tr>
+                                <th>Adresse</th>
+                                <td>3 rue de bidule, VilleImaginaire</td>
+                            </tr>
+                            <tr>
+                                <th>Téléphone</th>
+                                <td>+33 09 54 69 23 47</td>
+                            </tr>
+                            <tr>
+                                <th>Forme juridique</th>
+                                <td>SA</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s4 offset-s6">
+                    <h5>CLIENT :</h5>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th><%= devi.client %></th>
+                            </tr>
+                            <tr>
+                                <th>Adresse</th>
+                                <td>adresse du client</td>
+                            </tr>
+                            <tr>
+                                <th>Téléphone</th>
+                                <td>telephonne du client</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <br>
+            <br>
+            <br>
+            <div class="row">
+                <div class="col s6">
+                    <table>
+                        <thead><tr></tr></thead>
+                        <thead>
+                            <tr>
+                                <th>Date de fin de validité</th>
+                                <td><%= devi.date %></td>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+            <br>
+            <br>
+            <div class="row">
+                <div class="col s10">
+                    <table>
+                        <thead><tr></tr></thead>
+                        <thead>
+                          <tr>
+                              <th>Description</th>
+                              <th>Quantité</th>
+                              <th>Prix unitaire HT</th>
+                              <th>Total HT</th>
+                          </tr>
+                        </thead>
+                
+                        <thead>
+                          <tr>
+                            <td><%= devi.description %></td>
+                            <td><%= devi.quantite %></td>
+                            <td><%= devi.prix %></td>
+                            <td><%= devi.totalHT %></td>
+                          </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col s4 offset-s6">
+                    <table>
+                        <thead><tr></tr></thead>
+                        <thead>
+                            <tr>
+                                <th>Total HT</th>
+                                <td><%= devi.totalHT %> €</td>
+                            </tr>
+                        </thead>
+                        <thead>
+                            <tr>
+                                <th>TVA</th>
+                                <td><%= devi.tva %> %</td>
+                            </tr>
+                        </thead>
+                        <thead>
+                            <tr>
+                                <th>Total TTC</th>
+                                <td><%= devi.totalTTC %> €</td>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <h6>VENDEUR :</h6>
-    <h4><%= devi.client %></h4>
-    
-    <table>
-        <thead>
-          <tr>
-              <th>Date de fin de validité</th>
-              <td><%= devi.date %></td>
-          </tr>
-        </thead>
-
-    <table>
-        <thead>
-          <tr>
-              <th>Description</th>
-              <th>Quantité</th>
-              <th>Prix unitaire HT</th>
-              <th>Total HT</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <tr>
-            <td><%= devi.description %></td>
-            <td><%= devi.quantite %></td>
-            <td><%= devi.prix %></td>
-            <td><%= devi.totalHT %></td>
-          </tr>
-        </tbody>
-      </table>
-
-    <table>
-        <tbody>
-            <tr>
-                <th>Total HT</th>
-                <td><%= devi.totalHT %> €</td>
-            </tr>
-            <tr>
-                <th>TVA</th>
-                <td><%= devi.tva %> %</td>
-            </tr>
-            <tr>
-                <th>Total TTC</th>
-                <td><%= devi.totalTTC %> €</td>
-            </tr>
-        </tbody>
-    </table>
 
 </div>
 
