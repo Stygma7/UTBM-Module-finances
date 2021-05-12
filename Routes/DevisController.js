@@ -42,7 +42,7 @@ router.get('/dashboard', (req, res) => {
     })
 });
 // add
-router.post('/devis', (req, res) => {
+router.post('/creer_devis', (req, res) => {
     console.log([req.body.description]);
     console.log("Test id devisController :",req.body.selectClient)
     const newRecord = new DevisModel({
@@ -57,8 +57,8 @@ router.post('/devis', (req, res) => {
         date: req.body.date_val
     });
     // res.send(newRecord);
-    newRecord.save((err, docs) => {
-        if (!err) res.send(docs);
+    newRecord.save((err, devi) => {
+        if (!err) res.render("apercu_devis", { devi: devi });
         else console.log('Erreur création nouvelles données :' + err);
     });
 });
