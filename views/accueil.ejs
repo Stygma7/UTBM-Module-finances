@@ -1,28 +1,74 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <title>Page d'accueil</title>
-    <link rel = "stylesheet" href = "https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
-
+    <meta charset="utf-8" name="viewport" content="width = device-width, initial-scale = 1">
+    <title>Accueil</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
+    <!-- <link rel="stylesheet" href="/node_modules/materialize-css/dist/css/materialize.min.css"> -->
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>          
-    <script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+    <style>
+        footer {
+            position: absolute; 
+            bottom: 0; left: 0; 
+            right: 0}
+    </style>
 </head>
 
 <body>
-    <nav>
-        <div class="nav-wrapper teal darken-1">
-            <a href="#!" class="brand-logo"><p class="material-icons">home</p>ACCUEIL</a>
-            <ul class="right hide-on-med-and-down">
-                <li><a href=""><i class="material-icons">refresh</i></a></li>
-                <li><a><i class="material-icons">more_vert</i></a></li>
-            </ul>
-        </div>
-    </nav>
+    <div class="main">
+        <nav class="teal darken-1" role="navigation">
+            <div class="nav-wrapper">
+                <a href="" class="brand-logo"><p class="material-icons">home</p>ACCUEIL</a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href=""><i class="material-icons">refresh</i></a></li>
+                    <li><a><i class="material-icons">more_vert</i></a></li>
+                </ul>
+            </div>
+        </nav>
 
-    <div class="center-align">
-        <a class="waves-effect waves-light btn" href="./devis"><i class="material-icons left">cloud</i>Devis</a>
-        <a class="waves-effect waves-light btn" href="./dashboard"><i class="material-icons right">cloud</i>Tableau de bord</a>
+        <div class="section no-pad-bot" id="index-banner">
+            <div class="container center">
+                <br><br>
+                <h1 class="header orange-text" >Accueil finances</h1>
+                <br><br>
+                <div class="row">
+                    <div class="col s12">
+                        <div class="col s6">
+                            <a class="waves-effect waves-light btn-large orange lighten-1" href="./devis"><i class="material-icons left">calculate</i>Devis</a>
+                        </div>
+                        <div class="col s6">
+                            <a class="waves-effect waves-light btn-large orange lighten-1"><i class="material-icons right">calculate</i>Factures</a>
+                        </div>
+                    </div>
+                </div>
+
+                <br>
+                <div class="row">
+                    <a class="waves-effect waves-light btn-large orange lighten-1" href="./dashboard"><i class="material-icons left">insert_chart</i>Tableau de bord<i class="material-icons right">insert_chart</i></a>
+                </div>
+            </div>
+        </div>
+
+        <footer class="page-footer teal darken-1">
+            <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                <h5 class="white-text">Company Bio</h5>
+                <p class="grey-text text-lighten-4">We are a team of college students working on this project like it's our full time job. Any amount would help support and continue development on this project and is greatly appreciated.</p>
+                </div>
+            </div>
+            </div>
+            <div class="footer-copyright">
+            <div class="container">
+            Made by <span class="teal-text text-lighten-3">Antoine MURÉ</span> 
+            <span> Duresa PAJAZITI </span> 
+            <span class="teal-text text-lighten-3">Hugo LAURENT</span> 
+            <span> Matthieu HIRTH </span>
+            </div>
+            </div>
+        </footer>
     </div>
 </body>
