@@ -22,7 +22,7 @@ const DevisModel = mongoose.model(
         reduction: {
             type: Number,
             min: 0,
-            required: true
+            required: false
         },
         totalHT: {
             type: Number,

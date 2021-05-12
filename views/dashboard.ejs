@@ -34,9 +34,25 @@
     <script>
         Chart.defaults.plugins.title.display = true;
         
-        const data = [9, 6, 12, 7, 9, 15];
-        const labels = ['2021-01', '2021-02', '2021-03', '2021-04', '2021-05', '2021-06'];
-        getData()
+        //const data =
+        //document.getElementById('devis').hidden = true;
+        //var devis = document.getElementById('devis').innerHTML;
+        //console.log(devis)
+        var data = []; // = [9, 6, 12, 7, 9, 15];
+        var labels = [];
+        //['2021-01', '2021-02', '2021-03', '2021-04', '2021-05', '2021-06'];
+        // for(const devi in devis ){
+        //     data += devi.tva;
+        //     labels += devi[5];
+        //     //console.log(`${devi}: ${devis[devis]}`);
+        // };
+        //var devis = getData();
+        <% devis.forEach(function(devi) {%>
+            data.push(<%= devi.prix %>);
+            labels.push(new Date('<%= devi.date %>').toDateString());
+        <% }); %>
+        console.log(data);
+        //getData()
         
         Chart.defaults.plugins.title.text = 'Graphique';
         var ctx = document.getElementById('myChart').getContext('2d');
@@ -62,8 +78,8 @@
         });
 
         Chart.defaults.plugins.title.text = 'Graphique2';
-        var ctx = document.getElementById('myChart2').getContext('2d');
-        var myChart2 = new Chart(ctx, {
+        var ctx2 = document.getElementById('myChart2').getContext('2d');
+        var myChart2 = new Chart(ctx2, {
             type: 'bar',
             data: {
                 labels: labels,
@@ -86,7 +102,7 @@
         });
 
         
-        function getData() {
+        //function getData() {
             // alert('getData');
             
             // data.forEach(devi => {
@@ -96,7 +112,7 @@
             // devis.forEach(devi => {
             //     alert (devi.client)
             // })
-        }
+        //}
 
     </script>
 </body>
