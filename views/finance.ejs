@@ -93,23 +93,23 @@ Possibilité d'ajouter des articles
                         <label for="quantite">Quantité</label>
                     </div>
                     <div class="input-field col s2">
-                        <input type="text" id="prix"  name="prix" class="autocomplete" required>
-                        <label for="prix">Prix</label>
+                        <input type="number" id="prix"  name="prix" class="autocomplete" required>
+                        <label for="prix">Prix (€)</label>
                     </div>
                     <div class="input-field col s2">
                         <input value="20" type="number" id="tva"  name="tva" class="autocomplete" required>
-                        <label class="active" for="tva">TVA</label>
+                        <label class="active" for="tva">TVA (%)</label>
                     </div>
                     <div class="input-field col s2">
                         <input type="number" id="reduction"  name="reduction" class="autocomplete" >
-                        <label for="reduction">Réduction</label>
+                        <label for="reduction">Réduction (€)</label>
                     </div><div class="input-field col s2">
                         <input type="number" readonly value="0" id="total_ht"  name="total_ht" class="autocomplete" required>
-                        <label for="total_ht">Total HT</label>
+                        <label for="total_ht">Total HT (€)</label>
                     </div>
                     <div class="input-field col s2">
                         <input type="number" readonly value="0" id="total_ttc"  name="total_ttc" class="autocomplete" required>
-                        <label for="total_ttc">Total TTC</label>
+                        <label for="total_ttc">Total TTC (€)</label>
                     </div>
                     <div class="input-field col s12">          
                         <textarea id="description" name="description" class="materialize-textarea" required></textarea>

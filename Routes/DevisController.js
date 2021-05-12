@@ -56,11 +56,11 @@ router.post('/devis', (req, res) => {
         description: req.body.description,
         date: req.body.date_val
     });
-    res.send(newRecord);
-    // newRecord.save((err, docs) => {
-    //     if (!err) res.send(docs);
-    //     else console.log('Erreur création nouvelles données :' + err);
-    // });
+    // res.send(newRecord);
+    newRecord.save((err, docs) => {
+        if (!err) res.send(docs);
+        else console.log('Erreur création nouvelles données :' + err);
+    });
 });
 
 router.post('/factures', (req, res) => {
