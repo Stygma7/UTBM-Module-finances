@@ -30,11 +30,22 @@ router.get('/', (req, res) => {
     })
 });
 
-router.get('/devis', (req, res) => {
+router.get('/devis/new', (req, res) => {
     DevisModel.find((err, devis) => {
         if (!err) {
             // res.send(docs);
             res.render("finance", { devis: devis });
+            //console.log(devis[0].client);
+        }
+        else console.log("Error to get data : " + err);
+    })
+});
+
+router.get('/devis/view', (req, res) => {
+    DevisModel.find((err, devis) => {
+        if (!err) {
+            // res.send(docs);
+            res.render("viewDevis", { devis: devis });
             //console.log(devis[0].client);
         }
         else console.log("Error to get data : " + err);
@@ -52,7 +63,7 @@ router.get('/dashboard', (req, res) => {
     })
 });
 // add
-router.post('/creer_devis', (req, res) => {
+router.post('/devis/add', (req, res) => {
     console.log([req.body.description]);
     console.log("Test id devisController :",req.body.selectClient)
     const newRecord = new DevisModel({
