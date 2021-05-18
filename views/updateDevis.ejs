@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Finance</title>
+
+    <meta name = "viewport" content = "width = device-width, initial-scale = 1">
+    <link rel = "stylesheet" href = "https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+
+
+    <script>
+
+        $(function(){
+
+            $(document).ready(function() {
+                $('select').material_select();
+
+                function calculateTotal()
+                {
+
+                    //item_price.sugar = ($("#autocomplete-quantite").val() * $("#autocomplete-prix").val() )
+                    var prixHT = ($("#quantite").val() * $("#prix").val() - $("#reduction").val() )
+                    $("#total_ht").val(prixHT);
+                    var prixTTC =  prixHT + (prixHT * ($("#tva").val() / 100))
+                    $("#total_ttc").val(prixTTC);
+                }
+                $(function()
+                {
+                    $(".autocomplete").on("change keyup",calculateTotal)
+                })
+
+            }); // end of document ready
+
+
+        })(jQuery);
+
+        <!--document.addEventListener('DOMContentLoaded', function() {-->
+            <!--var elems = document.querySelectorAll('.datepicker');-->
+            <!--M.Datepicker.init(elems, { defaultDate: new Date(<%= devis.date %>) });-->
+        <!--});-->
+
+        // var $input = $('.datepicker').pickadate()
+        // var picker = $input.pickadate('picker')
+        // picker.set('select', new Date(2015, 3, 30))
+        // $("#date_val").value = '2017-06-01';
+
+        <%
+        function returnStringDate(dt) {
+            let d = new Date(dt);
+            let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
+            let mo = new Intl.DateTimeFormat('en', { month: '2-digit' }).format(d);
+            let da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(d);
+            return `${ye}-${mo}-${da}`;
+        } %>
+
+    </script>
+
+
+</head>
+
+<body>
+
+    <nav>
+        <div class="nav-wrapper teal lighten-1">
+            <a href="#!" class="brand-logo"><p class="material-icons">calculate</p>FINANCES</a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="../"><i class="material-icons">home</i></a></li>
+                <li><a href="../dashboard"><i class="material-icons">insert_chart</i></a></li>
+                <li><a href=""><i class="material-icons">refresh</i></a></li>
+                <li><a><i class="material-icons">more_vert</i></a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <h3>Nouveau devis</h3>
+        <div class="row">
+            <div class="col s12">
+                <form action="/devis/update/<%= devis.id %>" method="POST">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <select name="selectClient" id="selectClient">
+                                <option selected name="nomClient" value="<%= devis.client %>"><%= devis.client %></option>
+                            </select>
+                            <label for="selectClient">Destinataire</label>
+                        </div>
+                    </div>
+                    <h5>Informations</h5>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <label for="date_val">Durée de validité</label>
+                            <br>
+                            <input type="date" id="date_val" name="date_val" class="" value="<%= returnStringDate(devis.date) %>" min="<%= returnStringDate(Date.now()) %>" required>
+                            <span class="validity"></span>
+                        </div>
+                    </div>
+                    <h5>Articles</h5>
+                    <div class="row">
+                        <div class="input-field col s2">
+                            <input type="number" min="0" id="quantite"  name="quantite" class="autocomplete" value="<%= devis.quantite %>" required>
+                            <label for="quantite">Quantité</label>
+                        </div>
+                        <div class="input-field col s2">
+                            <input type="number" min="0" id="prix"  name="prix" class="autocomplete" value="<%= devis.prix %>" required>
+                            <label for="prix">Prix (€)</label>
+                        </div>
+                        <div class="input-field col s2">
+                            <input value="<%= devis.tva %>" min="0" type="number" id="tva"  name="tva" class="autocomplete" required>
+                            <label class="active" for="tva">TVA (%)</label>
+                        </div>
+                        <div class="input-field col s2">
+                            <input type="number" min="0" id="reduction" name="reduction" class="autocomplete" value="<%= devis.reduction %>">
+                            <label for="reduction">Réduction (€)</label>
+                        </div><div class="input-field col s2">
+                            <input type="number" min="0" readonly id="total_ht" name="total_ht" class="autocomplete" value="<%= devis.totalHT %>" required>
+                            <label for="total_ht">Total HT (€)</label>
+                        </div>
+                        <div class="input-field col s2">
+                            <input type="number" min="0" readonly id="total_ttc" name="total_ttc" class="autocomplete" value="<%= devis.totalTTC %>" required>
+                            <label for="total_ttc">Total TTC (€)</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <textarea id="description" name="description" class="materialize-textarea" required><%= devis.description %></textarea>
+                            <label for="description">Description</label>
+                        </div>
+                    </div>
+                    <button class="btn waves-effect waves-light" type="submit" name="action">Modifier
+                        <i class="material-icons right">send</i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script>
+    $(function(){
+
+        $("#date_val").min = '2021-07-05'
+    });
+
+</script>
+</html>

@@ -19,17 +19,6 @@ const { FactureModel } = require('../Models/DevisModel');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-router.get('/', (req, res) => {
-    DevisModel.find((err, devis) => {
-        if (!err) {
-            // res.send(docs);
-            res.render("accueil", { devis: devis });
-            //console.log(devis[0].client);
-        }
-        else console.log("Error to get data : " + err);
-    })
-});
-
 router.get('/devis/new', (req, res) => {
     DevisModel.find((err, devis) => {
         if (!err) {
@@ -95,14 +84,38 @@ router.post('/factures', (req, res) => {
         else console.log('Erreur création nouvelles données :' + err);
     });
 });
+
+
+router.get('/devis/:id', (req, res) => {
+    if (!ObjectID.isValid(req.params.id))
+        return res.status(400).send("ID unknown :" + req.params.id);
+
+    DevisModel.findById(req.params.id, (err, devis) => {
+        if (!err) {
+            // res.send(docs);
+            res.render("updateDevis", { devis: devis });
+            //console.log(devis[0].client);
+        }
+        else console.log("Error to get data : " + err);
+    })
+});
+
+
 //update
-router.put("/:id", (req, res) => {
+router.post('/devis/update/:id', (req, res) => {
     if (!ObjectID.isValid(req.params.id))
         return res.status(400).send("ID unknown :" + req.params.id);
 
         const updateRecord = {
-            client: req.body.client,
-            TVA: req.body.TVA
+            // client: req.body.selectClient,
+            quantite: req.body.quantite,
+            prix: req.body.prix,
+            tva: req.body.tva,
+            reduction: req.body.reduction,
+            totalHT: req.body.total_ht,
+            totalTTC: req.body.total_ttc,
+            description: req.body.description,
+            date: req.body.date_val
         };
         
         DevisModel.findByIdAndUpdate(
@@ -110,7 +123,7 @@ router.put("/:id", (req, res) => {
             { $set: updateRecord },
             { new: true },
             (err, docs) => {
-                if (!err) res.send(docs);
+                if (!err) res.redirect("/devis/view");
                 else console.log("Update error :" + err);
             }
         )

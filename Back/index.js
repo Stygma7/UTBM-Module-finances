@@ -18,9 +18,9 @@ app.use(middlewares);
 require('../Models/dbConfig');
 require('../Routes/DevisController');
 
-// app.get('/', (req,res) => {
-//     res.render("finance", { username1: 'aa', username2: 'Duresa', username3: 'Matthieu', username4: 'Hugo' });
-// });
+app.get('/', (req,res) => {
+    res.render("accueil");
+});
 
 
 const DevisRoutes = require('../Routes/DevisController');
