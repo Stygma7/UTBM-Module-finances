@@ -28,14 +28,23 @@
             var prixTTC =  prixHT + (prixHT * ($("#tva").val() / 100))
             $("#total_ttc").val(prixTTC);
             }
+
+           
+
             $(function()
             {
                 $(".autocomplete").on("change keyup",calculateTotal)
             })
+
+            
   }); // end of document ready
 })(jQuery); 
 
-
+ function MonDisplay(){
+                document.getElementById("fab").hidden = true;
+                window.print();
+                document.getElementById("fab").hidden = false;
+            }
 
 </script>
 
@@ -57,12 +66,12 @@ Possibilité d'ajouter des articles
         <div class="col s12">
             <div class="row">
                 <div class="col s12">
-                    <center><h4>DEVIS</h4></center>
+                    <center><h5>DEVIS</h5></center>
                 </div>
             </div>
             <div class="row">
-                <div class="col s4">
-                    <h5>VENDEUR :</h5>
+                <div class="col s12">
+                    <h6>VENDEUR :</h6>
                     <table>
                         <tbody>
                             <tr>
@@ -85,8 +94,8 @@ Possibilité d'ajouter des articles
                 </div>
             </div>
             <div class="row">
-                <div class="col s4 offset-s6">
-                    <h5>CLIENT :</h5>
+                <div class="col s6 offset-s6">
+                    <h6>CLIENT :</h6>
                     <table>
                         <tbody>
                             <tr>
@@ -104,11 +113,8 @@ Possibilité d'ajouter des articles
                     </table>
                 </div>
             </div>
-            <br>
-            <br>
-            <br>
             <div class="row">
-                <div class="col s6">
+                <div class="col s12">
                     <table>
                         <thead><tr></tr></thead>
                         <thead>
@@ -120,10 +126,8 @@ Possibilité d'ajouter des articles
                     </table>
                 </div>
             </div>
-            <br>
-            <br>
             <div class="row">
-                <div class="col s10">
+                <div class="col s12">
                     <table>
                         <thead><tr></tr></thead>
                         <thead>
@@ -131,6 +135,7 @@ Possibilité d'ajouter des articles
                               <th>Description</th>
                               <th>Quantité</th>
                               <th>Prix unitaire HT</th>
+                              <th>Reduction</th>
                               <th>Total HT</th>
                           </tr>
                         </thead>
@@ -139,16 +144,16 @@ Possibilité d'ajouter des articles
                           <tr>
                             <td><%= devi.description %></td>
                             <td><%= devi.quantite %></td>
-                            <td><%= devi.prix %></td>
-                            <td><%= devi.totalHT %></td>
+                            <td><%= devi.prix %> €</td>
+                            <td><%= devi.reduction %> €</td>
+                            <td><%= devi.totalHT %> €</td>
                           </tr>
                         </thead>
                     </table>
                 </div>
             </div>
-            <br>
             <div class="row">
-                <div class="col s4 offset-s6">
+                <div class="col s6 offset-s6">
                     <table>
                         <thead><tr></tr></thead>
                         <thead>
@@ -171,6 +176,18 @@ Possibilité d'ajouter des articles
                         </thead>
                     </table>
                 </div>
+            </div>
+            <div class="row">
+                <div class="fixed-action-btn horizontal" id="fab">
+                    <a class="btn-floating btn-large red">
+                      <i class="large material-icons">menu</i>
+                    </a>
+                    <ul>
+                      <li><a class="btn-floating blue" id="print" onclick="MonDisplay()"><i class="material-icons">file_download</i></a></li>
+                      <li><a class="btn-floating yellow darken-1"><i class="material-icons">mail</i></a></li>
+                      <li><a class="btn-floating green"><i class="material-icons">check</i></a></li>
+                    </ul>
+                  </div>
             </div>
         </div>
     </div>
