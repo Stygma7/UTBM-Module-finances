@@ -32,40 +32,38 @@
     </div>
     
     <script>
-        Chart.defaults.plugins.title.display = true;
-        
-        //const data =
-        //document.getElementById('devis').hidden = true;
-        //var devis = document.getElementById('devis').innerHTML;
-        //console.log(devis)
-        var data = []; // = [9, 6, 12, 7, 9, 15];
+        var data = [];
+        var prix = [];
+        var quantite = [];
         var labels = [];
-        //['2021-01', '2021-02', '2021-03', '2021-04', '2021-05', '2021-06'];
-        // for(const devi in devis ){
-        //     data += devi.tva;
-        //     labels += devi[5];
-        //     //console.log(`${devi}: ${devis[devis]}`);
-        // };
-        //var devis = getData();
-        <% devis.forEach(function(devi) {%>
-            data.push(<%= devi.prix %>);
-            labels.push(new Date('<%= devi.date %>').toDateString());
-        <% }); %>
-        console.log(data);
-        //getData()
         
-        Chart.defaults.plugins.title.text = 'Graphique';
+        <% devis.forEach(function(devi) {%>
+            data.push(<%= devi.prix * devi.quantite %>);
+            prix.push(<%= devi.prix %>);
+            quantite.push(<%= devi.quantite %>);
+            labels.push(new Date('<%= devi.date %>').toDateString());
+        <% }); %>;
+            
+        Chart.defaults.plugins.title.display = true;
+        Chart.defaults.plugins.title.text = 'Données devis';
         var ctx = document.getElementById('myChart').getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'line',
             data: {
                 labels: labels,
                 datasets: [{
-                    label: 'Devis réalisés',
-                    data: data,
-                    borderColor: 'rgb(75, 192, 192)',
+                    label: 'Prix',
+                    data: prix,
+                    borderColor: 'rgb(255, 99, 132)',
+                    borderWidth: 4
                     // tension: 0.1,
-                    // borderWidth: 2
+                },
+                {
+                    label: 'Quantite',
+                    data: quantite,
+                    borderColor: 'rgb(75, 192, 192)',
+                    borderWidth: 4
+                    // tension: 0.1,
                 }]
             },
             options: {
@@ -100,20 +98,6 @@
                 }
             }
         });
-
-        
-        //function getData() {
-            // alert('getData');
-            
-            // data.forEach(devi => {
-            //     alert (devi) 
-            // })
-            
-            // devis.forEach(devi => {
-            //     alert (devi.client)
-            // })
-        //}
-
     </script>
 </body>
 </html>
