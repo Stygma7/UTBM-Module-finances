@@ -8,6 +8,41 @@ const bodyParser = require('body-parser');
 const { DevisModel } = require('../Models/DevisModel');
 const { FactureModel } = require('../Models/DevisModel');
 
+//----------------MAIL----------------------------------------------------
+const nodemailer = require('nodemailer');
+let transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth:{
+        user: 'noreply.finances.ta70',
+        pass: '8@9KVzbb'
+    }
+});
+
+//pajazitiduresa@hotmail.com,matthieu.hirth.68@gmail.com,hugo.laurent@utbm.fr
+
+let mailContent={
+    from: 'noreply.finances.ta70',
+    to: 'antoine.mure.am@gmail.com',
+    subject: 'First Node.js email',
+    text: 'Hi,This is a test mail sent using Nodemailer',
+    html: '<h1>COUCOU ! Voici un test</h1>',
+    // attachments: [
+    //     {
+    //         filename: 'image1.jpg',
+    //         path: __dirname + '/image1.jpg'
+    //     }
+    // ]
+};
+
+transporter.sendMail(mailContent, function(error, data){
+    if(err){
+        console.log('Unable to send mail');
+    }else{
+        console.log('Email send successfully');
+    }
+});
+//------------------FIN MAIL----------------------------------------------
+
 // const devis = new DevisModel({ client: 'Hugo', TVA: 20 });
 // console.log(devis.name); // 'Silence'
 
