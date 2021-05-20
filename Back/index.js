@@ -36,7 +36,7 @@ app.use(bodyParser.json());
 app.use('/', DevisRoutes);
 
 // app.get('/finance', (req,res) => {
-//     res.sendFile(path.join(dirPath + '/finance.ejs'));
+//     res.sendFile(path.join(dirPath + '/newDevis.ejs'));
 // });
 
 // app.get('/dashboard', (req,res) => {

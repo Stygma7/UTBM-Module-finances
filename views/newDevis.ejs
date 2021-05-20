@@ -33,9 +33,16 @@
                 $(".autocomplete").on("change keyup",calculateTotal)
             })
   }); // end of document ready
-})(jQuery); 
+})(jQuery);
 
-
+    <%
+    function returnStringDate(dt) {
+        let d = new Date(dt);
+        let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
+        let mo = new Intl.DateTimeFormat('en', { month: '2-digit' }).format(d);
+        let da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(d);
+        return `${ye}-${mo}-${da}`;
+    } %>
 
 </script>
 
@@ -83,7 +90,7 @@ Possibilité d'ajouter des articles
                         <div class="input-field col s12">
                             <label for="date_val">Durée de validité</label>
                             <br>
-                            <input type="date" id="date_val" name="date_val" class="datepicker" required>
+                            <input type="date" id="date_val" name="date_val" class="" min="<%= returnStringDate(Date.now()) %>" required>
                         </div>
                     </div>
                     <h5>Articles</h5>

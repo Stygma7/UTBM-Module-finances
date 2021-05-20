@@ -61,7 +61,7 @@ router.get('/devis/new', (req, res) => {
     DevisModel.find((err, devis) => {
         if (!err) {
             // res.send(docs);
-            res.render("finance", { devis: devis });
+            res.render("newDevis", { devis: devis });
             //console.log(devis[0].client);
         }
         else console.log("Error to get data : " + err);
@@ -80,14 +80,7 @@ router.get('/devis/view', (req, res) => {
 });
 
 router.get('/devis/email', (req, res) => {
-    DevisModel.find((err, devis) => {
-        if (!err) {
-            // res.send(docs);
-            res.render("sendDevis", { devis: devis });
-            //console.log(devis[0].client);
-        }
-        else console.log("Error to get data : " + err);
-    })
+    res.render("sendDevis", { devis: devis });
 });
 
 router.post('/devis/send', (req, res) => {
@@ -143,7 +136,7 @@ router.post('/devis/add', (req, res) => {
     });
     // res.send(newRecord);
     newRecord.save((err, devi) => {
-        if (!err) res.render("apercu_devis", { devi: devi });
+        if (!err) res.render("apercuDevis", { devi: devi });
         else console.log('Erreur création nouvelles données :' + err);
     });
 });
@@ -198,20 +191,20 @@ router.post('/devis/update/:id', (req, res) => {
             { $set: updateRecord },
             { new: true },
             (err, devi) => {
-                if (!err) res.render("apercu_devis", { devi: devi });
+                if (!err) res.render("apercuDevis", { devi: devi });
                 else console.log("Update error :" + err);
             }
         )
 });
 
-router.delete("/:id", (req, res) => {
+router.delete("devis/delete/:id", (req, res) => {
     if (!ObjectID.isValid(req.params.id))
         return res.status(400).send("ID unknown :" + req.params.id);
     
     DevisModel.findByIdAndRemove(
         req.params.id,
         (err, docs) => {
-            if (!err) res.send(docs);
+            if (!err) res.redirect("/devis/view");
             else console.log("Delete error : " + err);
         })
 });
