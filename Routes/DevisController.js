@@ -20,27 +20,27 @@ let transporter = nodemailer.createTransport({
 
 //pajazitiduresa@hotmail.com,matthieu.hirth.68@gmail.com,hugo.laurent@utbm.fr
 
-let mailContent={
-    from: 'noreply.finances.ta70',
-    to: 'antoine.mure.am@gmail.com',
-    subject: 'First Node.js email',
-    text: 'Hi,This is a test mail sent using Nodemailer',
-    html: '<h1>COUCOU ! Voici un test</h1>',
-    // attachments: [
-    //     {
-    //         filename: 'image1.jpg',
-    //         path: __dirname + '/image1.jpg'
-    //     }
-    // ]
-};
+// let mailContent={
+//     from: 'noreply.finances.ta70',
+//     to: 'antoine.mure.am@gmail.com',
+//     subject: 'First Node.js email',
+//     text: 'Hi,This is a test mail sent using Nodemailer',
+//     html: '<h1>COUCOU ! Voici un test</h1>',
+//     attachments: [
+//         {
+//             filename: 'image1.jpg',
+//             path: __dirname + '/image1.jpg'
+//         }
+//     ]
+// };
 
-transporter.sendMail(mailContent, function(error, data){
-    if(err){
-        console.log('Unable to send mail');
-    }else{
-        console.log('Email send successfully');
-    }
-});
+// transporter.sendMail(mailContent, function(error, data){
+//     if(err){
+//         console.log('Unable to send mail');
+//     }else{
+//         console.log('Email send successfully');
+//     }
+// });
 //------------------FIN MAIL----------------------------------------------
 
 // const devis = new DevisModel({ client: 'Hugo', TVA: 20 });
@@ -66,6 +66,51 @@ router.get('/devis/new', (req, res) => {
 });
 
 router.get('/devis/view', (req, res) => {
+    DevisModel.find((err, devis) => {
+        if (!err) {
+            // res.send(docs);
+            res.render("viewDevis", { devis: devis });
+            //console.log(devis[0].client);
+        }
+        else console.log("Error to get data : " + err);
+    })
+});
+
+router.get('/devis/email', (req, res) => {
+    DevisModel.find((err, devis) => {
+        if (!err) {
+            // res.send(docs);
+            res.render("sendDevis", { devis: devis });
+            //console.log(devis[0].client);
+        }
+        else console.log("Error to get data : " + err);
+    })
+});
+
+router.post('/devis/send', (req, res) => {
+    console.log([req.body.fichierDevis]);
+    let mailContent={
+        from: '"noreply" <noreply.finances.ta70>',
+        to: req.body.emailDestinataire,
+        subject: req.body.emailObjet,
+        text: req.body.emailMessage,
+        attachments: [
+            {
+                filename: 'image.jpg',
+                path: ''
+            }
+        ]
+    };
+    
+    transporter.sendMail(mailContent, function(error, data){
+        if(err){
+            console.log('Unable to send mail');
+        }else{
+            console.log('Email send successfully');
+        }
+    });
+    // res.send(docs);
+    
     DevisModel.find((err, devis) => {
         if (!err) {
             // res.send(docs);
