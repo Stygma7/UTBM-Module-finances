@@ -80,7 +80,7 @@ router.get('/devis/view', (req, res) => {
 });
 
 router.get('/devis/email', (req, res) => {
-    res.render("sendDevis", { devis: devis });
+    res.render("sendDevis");
 });
 
 router.post('/devis/send', (req, res) => {
