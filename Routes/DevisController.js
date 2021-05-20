@@ -8,6 +8,9 @@ const bodyParser = require('body-parser');
 const { DevisModel } = require('../Models/DevisModel');
 const { FactureModel } = require('../Models/DevisModel');
 
+const path = require('path');
+const DLPath = path.join(__dirname, '/../Telechargements/');
+
 //----------------MAIL----------------------------------------------------
 const nodemailer = require('nodemailer');
 let transporter = nodemailer.createTransport({
@@ -88,7 +91,7 @@ router.get('/devis/email', (req, res) => {
 });
 
 router.post('/devis/send', (req, res) => {
-    console.log([req.body.fichierDevis]);
+    console.log([DLPath + req.body.fichierDevis]);
     let mailContent={
         from: '"noreply" <noreply.finances.ta70>',
         to: req.body.emailDestinataire,
@@ -96,29 +99,21 @@ router.post('/devis/send', (req, res) => {
         text: req.body.emailMessage,
         attachments: [
             {
-                filename: 'image.jpg',
-                path: ''
+                filename: req.body.fichierDevis,
+                path: DLPath + req.body.fichierDevis
             }
         ]
     };
     
     transporter.sendMail(mailContent, function(error, data){
-        if(err){
+        if(error){
             console.log('Unable to send mail');
         }else{
             console.log('Email send successfully');
         }
     });
-    // res.send(docs);
     
-    DevisModel.find((err, devis) => {
-        if (!err) {
-            // res.send(docs);
-            res.render("viewDevis", { devis: devis });
-            //console.log(devis[0].client);
-        }
-        else console.log("Error to get data : " + err);
-    })
+    res.redirect("/devis/view");
 });
 
 router.get('/dashboard', (req, res) => {
@@ -187,7 +182,7 @@ router.post('/devis/update/:id', (req, res) => {
         return res.status(400).send("ID unknown :" + req.params.id);
 
         const updateRecord = {
-            // client: req.body.selectClient,
+            client: req.body.selectClient,
             quantite: req.body.quantite,
             prix: req.body.prix,
             tva: req.body.tva,
@@ -202,8 +197,8 @@ router.post('/devis/update/:id', (req, res) => {
             req.params.id,
             { $set: updateRecord },
             { new: true },
-            (err, docs) => {
-                if (!err) res.redirect("/devis/view");
+            (err, devi) => {
+                if (!err) res.render("apercu_devis", { devi: devi });
                 else console.log("Update error :" + err);
             }
         )
