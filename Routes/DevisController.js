@@ -141,17 +141,17 @@ router.post('/devis/add', (req, res) => {
     });
 });
 
-router.post('/factures', (req, res) => {
-    console.log("Test id devisController :",req.body.nomClient);
-    const newRecord = new FactureModel({
-        client2: req.body.nomClient,
-        TVA2: 30
-    });
-    newRecord.save((err, docs) => {
-        if (!err) res.send(docs);
-        else console.log('Erreur création nouvelles données :' + err);
-    });
-});
+// router.post('/factures', (req, res) => {
+//     console.log("Test id devisController :",req.body.nomClient);
+//     const newRecord = new FactureModel({
+//         client2: req.body.nomClient,
+//         TVA2: 30
+//     });
+//     newRecord.save((err, docs) => {
+//         if (!err) res.send(docs);
+//         else console.log('Erreur création nouvelles données :' + err);
+//     });
+// });
 
 
 router.get('/devis/:id', (req, res) => {
@@ -197,10 +197,10 @@ router.post('/devis/update/:id', (req, res) => {
         )
 });
 
-router.delete("devis/delete/:id", (req, res) => {
+router.get('/devis/delete/:id', (req, res) => {
     if (!ObjectID.isValid(req.params.id))
         return res.status(400).send("ID unknown :" + req.params.id);
-    
+    console.log(req.params.id);
     DevisModel.findByIdAndRemove(
         req.params.id,
         (err, docs) => {
