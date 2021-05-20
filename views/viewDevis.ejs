@@ -41,15 +41,26 @@ Possibilité d'ajouter des articles
     <div class="row">
         <div class="col s12">
             <div class="row">
-                <div class="card teal darken-1">
+                <div class="card teal lighten-1">
                     <div class="card-content white-text">
                         <span class="card-title">Devis de <%= devi.client %></span>
-                        <p>Description :
-                            <%= devi.description %>
-                        </p>
+                        
+                        <div style="margin-bottom: 20px;">
+                            <p style="margin-bottom: 2px;">Date de fin de validité : <%= devi.date %></p>
+                            <p>Description : <%= devi.description %></p>
+                        </div>
+
+                        <div style="margin-bottom: 25px;">
+                            <span class="col s2">Quantité : <%= devi.quantite %></span>
+                            <span class="col s2">Prix : <%= devi.prix  %> €</span>
+                            <span class="col s2">TVA : <%= devi.tva  %> %</span>
+                            <span class="col s2">Reduction : <%= devi.reduction  %> €</span>
+                            <span class="col s2">Total HT : <%= devi.totalHT  %> €</span>
+                            <span class="col s2">Total TTC : <%= devi.totalTTC  %> €</span>
+                        </div>
                     </div>
                     <div class="card-action">
-                        <a href="/devis/<%= devi.id %>" class="btn-floating teal lighten-1"><i class="large material-icons">mode_edit</i></a>
+                        <a href="/devis/<%= devi.id %>" class="btn-floating teal darken-1"><i class="large material-icons">mode_edit</i></a>
                         <a class="btn-floating green"><i class="material-icons">check</i></a>
                         <a class="btn-floating red"><i class="material-icons">clear</i></a>
                     </div>
