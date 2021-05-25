@@ -106,7 +106,7 @@ router.post('/send', (req, res) => {
         }
     });
     
-    res.redirect("/view");
+    res.redirect("/finance/devis/view");
 });
 // add
 router.post('/add', (req, res) => {
@@ -206,7 +206,7 @@ router.get('/delete/:id', (req, res) => {
     DevisModel.findByIdAndRemove(
         req.params.id,
         (err, docs) => {
-            if (!err) res.redirect("/devis/view");
+            if (!err) res.redirect("/finance/devis/view");
             else console.log("Delete error : " + err);
         })
 });
