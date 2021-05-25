@@ -40,6 +40,10 @@ const DevisModel = mongoose.model(
         date: {
             type: Date,
             default: Date.now
+        },
+        signe: {
+            type: Boolean,
+            default: false
         }
     },
     "Devis"
