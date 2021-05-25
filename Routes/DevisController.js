@@ -57,7 +57,7 @@ let transporter = nodemailer.createTransport({
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-router.get('/devis/new', (req, res) => {
+router.get('/new', (req, res) => {
     DevisModel.find((err, devis) => {
         if (!err) {
             // res.send(docs);
@@ -68,7 +68,7 @@ router.get('/devis/new', (req, res) => {
     })
 });
 
-router.get('/devis/view', (req, res) => {
+router.get('/view', (req, res) => {
     DevisModel.find((err, devis) => {
         if (!err) {
             // res.send(docs);
@@ -79,11 +79,11 @@ router.get('/devis/view', (req, res) => {
     })
 });
 
-router.get('/devis/email', (req, res) => {
+router.get('/email', (req, res) => {
     res.render("sendDevis");
 });
 
-router.post('/devis/send', (req, res) => {
+router.post('/send', (req, res) => {
     console.log([DLPath + req.body.fichierDevis]);
     let mailContent={
         from: '"noreply" <noreply.finances.ta70>',
@@ -106,21 +106,10 @@ router.post('/devis/send', (req, res) => {
         }
     });
     
-    res.redirect("/devis/view");
-});
-
-router.get('/dashboard', (req, res) => {
-    DevisModel.find((err, devis) => {
-        if (!err) {
-            // res.send(docs);
-            res.render("dashboard", { devis: devis });
-            //console.log(devis[0].client);
-        }
-        else console.log("Error to get data : " + err);
-    })
+    res.redirect("finance/devis/view");
 });
 // add
-router.post('/devis/add', (req, res) => {
+router.post('/add', (req, res) => {
     console.log([req.body.description]);
     console.log("Test id devisController :",req.body.selectClient)
     const newRecord = new DevisModel({
@@ -154,7 +143,7 @@ router.post('/devis/add', (req, res) => {
 // });
 
 
-router.get('/devis/:id', (req, res) => {
+router.get('/apercu/:id', (req, res) => {
     if (!ObjectID.isValid(req.params.id))
         return res.status(400).send("ID unknown :" + req.params.id);
 
@@ -170,7 +159,7 @@ router.get('/devis/:id', (req, res) => {
 
 
 //update
-router.post('/devis/update/:id', (req, res) => {
+router.post('/update/:id', (req, res) => {
     if (!ObjectID.isValid(req.params.id))
         return res.status(400).send("ID unknown :" + req.params.id);
 
@@ -197,7 +186,7 @@ router.post('/devis/update/:id', (req, res) => {
         )
 });
 
-router.get('/devis/download/:id', (req, res) => {
+router.get('/download/:id', (req, res) => {
     if (!ObjectID.isValid(req.params.id))
         return res.status(400).send("ID unknown :" + req.params.id);
         
@@ -210,7 +199,7 @@ router.get('/devis/download/:id', (req, res) => {
         )
 });
 
-router.get('/devis/delete/:id', (req, res) => {
+router.get('/delete/:id', (req, res) => {
     if (!ObjectID.isValid(req.params.id))
         return res.status(400).send("ID unknown :" + req.params.id);
     console.log(req.params.id);
