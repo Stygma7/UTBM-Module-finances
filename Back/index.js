@@ -4,6 +4,9 @@ const path = require('path');
 const dirPath = path.join(__dirname, '/../views');
 const bodyParser = require('body-parser');
 
+const mongoose = require('mongoose');
+const DevisController = require('../Routes/DevisController');
+const DashboardController = require('../Routes/DashboardController');
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
@@ -14,64 +17,25 @@ const middlewares = [
   bodyParser.urlencoded({ extended: true })
 ];
 app.use(middlewares);
+app.use('/finance/devis', DevisController);
+app.use('/finance/dashboard', DashboardController);
+
+
 
 require('../Models/dbConfig');
 require('../Routes/DevisController');
 
-app.get('/', (req,res) => {
+app.get('/finance', (req,res) => {
     res.render("accueil");
 });
 
 
-const DevisRoutes = require('../Routes/DevisController');
-//const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
-//const cors = require('cors');
+
 
 mongoose.set('useFindAndModify', false);
 
 app.use(bodyParser.json());
 
-//app.use(cors({origin: 'https://localhost:3000'}));
-app.use('/', DevisRoutes);
-
-// app.get('/finance', (req,res) => {
-//     res.sendFile(path.join(dirPath + '/newDevis.ejs'));
-// });
-
-// app.get('/dashboard', (req,res) => {
-//     res.sendFile(path.join(dirPath + '/dashboard.html'));
-// });
-
-app.get('/view/:id', function(req,res){
-    // db.serialize(()=>{
-    //     db.each('SELECT id ID, name NAME FROM emp WHERE id =?', [req.body.id], function(err,row){     //db.each() is only one which is funtioning while reading data from the DB
-    //         if(err){
-    //             res.send("Error encountered while displaying");
-    //             return console.error(err.message);
-    //         }
-    //         res.send(` ID: ${row.ID},    Name: ${row.NAME}`);
-    //         console.log("Entry displayed successfully");
-    //     });
-    // });
-    //res.send(` ID: `+req.params.id);
-    console.log("Entry displayed successfully ");
-});
-
-// Insert
-// app.get('/add', function(req,res){
-//     // db.serialize(()=>{
-//     //     db.run('INSERT INTO emp(id,name) VALUES(?,?)', [req.body.id, req.body.name], function(err) {
-//     //         if (err) {
-//     //             return console.log(err.message);
-//     //         }
-//     //         console.log("New employee has been added");
-//     //         res.send("New employee has been added into the database with ID = "+req.body.id+ " and Name = "+req.body.name);
-//     //     });
-//     // });
-//     console.log("New employee has been added");
-//     res.send("New employee has been added into the database with ID = "+req.id+ " and Name = "+req.name);
-// });
 app.listen(8080, () => {
-    console.log("Serveur à l'écoute : http://localhost:8080/")
+    console.log("Serveur à l'écoute : http://localhost:8080/finance")
 });
