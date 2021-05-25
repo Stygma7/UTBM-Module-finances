@@ -10,6 +10,12 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.tooltipped');
+        var instances = M.Tooltip.init(elems, options);
+    });
+    </script>
 
 
 </head>
@@ -45,7 +51,7 @@ Possibilité d'ajouter des articles
                         <div class="card-title" style="margin-bottom: 10px; font-size: xx-large;">Devis de <b><%= devi.client %></b></div>
                         
                         <div style="margin-bottom: 10px;">
-                            <div style="float:left; width:40%;">N° <b><%= devi.id %></b></div>
+                            <div style="float:left; width:40%;">N° <%= devi.id %></div>
                             <div style="text-align: right; margin-left: 40%;">Date de fin de validité : <b><%= devi.date.toDateString() %></b></div>
                         </div>
                         <div style="margin-bottom: 10px;">Description : <%= devi.description %></div>
@@ -61,10 +67,10 @@ Possibilité d'ajouter des articles
                         
                     </div>
                     <div class="card-action">
-                        <a href="/devis/<%= devi.id %>" class="btn-floating teal darken-1"><i class="large material-icons">mode_edit</i></a>
-                        <a class="btn-floating green"><i class="material-icons">playlist_add_check</i></a>
-                        <a href="/devis/delete/<%= devi.id %>" class="btn-floating red"><i class="material-icons">delete</i></a>
-                        <a href="/devis/download/<%= devi.id %>" class="btn-floating teal accent-4"><i class="material-icons">file_download</i></a>
+                        <a class="btn-floating teal darken-1 tooltipped" href="/devis/<%= devi.id %>" data-position="bottom" data-tooltip="Modifier" data-delay="0"><i class="large material-icons">mode_edit</i></a>
+                        <a class="btn-floating green tooltipped" data-position="bottom" data-tooltip="Signer" data-delay="0"><i class="material-icons">playlist_add_check</i></a>
+                        <a class="btn-floating red tooltipped" href="/devis/delete/<%= devi.id %>" data-position="bottom" data-tooltip="Supprimer" data-delay="0"><i class="material-icons">delete</i></a>
+                        <a class="btn-floating teal accent-4 tooltipped" href="/devis/download/<%= devi.id %>" data-position="bottom" data-tooltip="Télécharger" data-delay="0"><i class="material-icons">file_download</i></a>
                     </div>
                 </div>
             </div>
@@ -72,7 +78,7 @@ Possibilité d'ajouter des articles
     </div>
     <% }); %>
     <div class="fixed-action-btn">
-        <a href="/devis/new" class="btn-floating btn-large teal"><i class="large material-icons">add</i></a>
+        <a href="/devis/new" class="btn-floating btn-large teal tooltipped" data-position="left" data-tooltip="Nouveau devis" data-delay="0"><i class="large material-icons">add</i></a>
     </div>
 </div>
 
