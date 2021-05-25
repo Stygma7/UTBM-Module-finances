@@ -197,6 +197,19 @@ router.post('/devis/update/:id', (req, res) => {
         )
 });
 
+router.get('/devis/download/:id', (req, res) => {
+    if (!ObjectID.isValid(req.params.id))
+        return res.status(400).send("ID unknown :" + req.params.id);
+        
+        DevisModel.findById(
+            req.params.id,
+            (err, devi) => {
+                if (!err) res.render("apercuDevis", { devi: devi });
+                else console.log("Update error :" + err);
+            }
+        )
+});
+
 router.get('/devis/delete/:id', (req, res) => {
     if (!ObjectID.isValid(req.params.id))
         return res.status(400).send("ID unknown :" + req.params.id);
