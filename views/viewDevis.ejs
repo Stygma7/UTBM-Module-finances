@@ -71,7 +71,7 @@ Possibilité d'ajouter des articles
                         <% if(devi.signe === true){ %>
                             <a class="btn-floating green tooltipped" data-position="bottom" data-tooltip="Transformer en facture" data-delay="0"><i class="material-icons">exit_to_app</i></a>
                          <% } else{ %>
-                            <a class="btn-floating green tooltipped" data-position="bottom" data-tooltip="Signer" data-delay="0"><i class="material-icons">playlist_add_check</i></a>
+                            <a class="btn-floating green tooltipped" href="/finance/devis/signature/<%= devi.id %>" data-position="bottom" data-tooltip="Signer" data-delay="0"><i class="material-icons">playlist_add_check</i></a>
                           <% } %>
                         <a class="btn-floating red tooltipped" href="/finance/devis/delete/<%= devi.id %>" data-position="bottom" data-tooltip="Supprimer" data-delay="0"><i class="material-icons">delete</i></a>
                         <a class="btn-floating teal accent-4 tooltipped" href="/finance/devis/download/<%= devi.id %>" data-position="bottom" data-tooltip="Télécharger" data-delay="0"><i class="material-icons">file_download</i></a>

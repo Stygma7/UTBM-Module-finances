@@ -155,6 +155,26 @@ router.get('/apercu/:id', (req, res) => {
     })
 });
 
+router.get('/signature/:id', (req, res) => {
+    if (!ObjectID.isValid(req.params.id))
+        return res.status(400).send("ID unknown :" + req.params.id);
+
+        const updateRecord = {
+            signe: true
+        };
+        
+        DevisModel.findByIdAndUpdate(
+            req.params.id,
+            { $set: updateRecord },
+            { new: true },
+            (err, devi) => {
+                
+                if (!err) res.redirect("/finance/devis/view");
+                else console.log("Update error :" + err);
+            }
+        )
+});
+
 
 //update
 router.post('/update/:id', (req, res) => {
