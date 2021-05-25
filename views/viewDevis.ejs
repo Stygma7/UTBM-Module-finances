@@ -28,16 +28,18 @@ Arcticle : quantité, prix, tva, réduction, total HT, total TTC, description
 Possibilité d'ajouter des articles
 -->
 
-<nav>
-    <div class="nav-wrapper teal lighten-1">
-        <a href="#!" class="brand-logo"><p class="material-icons">calculate</p>FINANCES</a>
-        <ul class="right hide-on-med-and-down">
-            <li><a href="/finance"><i class="material-icons">home</i></a></li>
-            <li><a href="/finance/dashboard"><i class="material-icons">insert_chart</i></a></li>
-            <li><a href=""><i class="material-icons">refresh</i></a></li>
-        </ul>
-    </div>
-</nav>
+<div class="navbar-fixed">
+    <nav>
+        <div class="nav-wrapper" style="background-color: #00A896;">
+            <a href="#!" class="brand-logo"><p class="material-icons">calculate</p>FINANCES</a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="/finance"><i class="material-icons">home</i></a></li>
+                <li><a href="/finance/dashboard"><i class="material-icons">insert_chart</i></a></li>
+                <li><a href=""><i class="material-icons">refresh</i></a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
 
 <div class="container">
 
@@ -46,8 +48,14 @@ Possibilité d'ajouter des articles
     <div class="row">
         <div class="col s12">
             <div class="row">
-                <div class="card teal lighten-1">
+
+                <div class="card" <% if(devi.signe === true){ %> style="background-color: #00A896;"<% }else{ %> style="background-color: #028090;" <% } %>>
+                    <!-- <div <% if(devi.signe === true){ %> class="card" style="background-color: #05668D;"<% }else{ %> class="card teal darken-1" <% } %>> -->
+
                     <div class="card-content white-text">
+                        <% if(devi.signe === true){ %>
+                            <div style="float:right;"><i class="material-icons">done</i></div>
+                        <% } %>
                         <div class="card-title" style="margin-bottom: 10px; font-size: xx-large;">Devis de <b><%= devi.client %></b></div>
                         
                         <div style="margin-bottom: 10px;">
@@ -67,12 +75,12 @@ Possibilité d'ajouter des articles
                         
                     </div>
                     <div class="card-action">
-                        <a class="btn-floating teal darken-1 tooltipped" href="/finance/devis/apercu/<%= devi.id %>" data-position="bottom" data-tooltip="Modifier" data-delay="0"><i class="large material-icons">mode_edit</i></a>
                         <% if(devi.signe === true){ %>
-                            <a class="btn-floating green tooltipped" data-position="bottom" data-tooltip="Transformer en facture" data-delay="0"><i class="material-icons">exit_to_app</i></a>
-                         <% } else{ %>
+                            <a class="btn-floating orange orange-darken-4 tooltipped" data-position="bottom" data-tooltip="Transformer en facture" data-delay="0"><i class="material-icons">exit_to_app</i></a>
+                        <% } else{ %>
+                            <a class="btn-floating teal darken-1 tooltipped" href="/finance/devis/apercu/<%= devi.id %>" data-position="bottom" data-tooltip="Modifier" data-delay="0"><i class="large material-icons">mode_edit</i></a>
                             <a class="btn-floating green tooltipped" href="/finance/devis/signature/<%= devi.id %>" data-position="bottom" data-tooltip="Signer" data-delay="0"><i class="material-icons">playlist_add_check</i></a>
-                          <% } %>
+                        <% } %>
                         <a class="btn-floating red tooltipped" href="/finance/devis/delete/<%= devi.id %>" data-position="bottom" data-tooltip="Supprimer" data-delay="0"><i class="material-icons">delete</i></a>
                         <a class="btn-floating teal accent-4 tooltipped" href="/finance/devis/download/<%= devi.id %>" data-position="bottom" data-tooltip="Télécharger" data-delay="0"><i class="material-icons">file_download</i></a>
                     </div>
