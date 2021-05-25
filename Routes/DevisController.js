@@ -110,8 +110,6 @@ router.post('/send', (req, res) => {
 });
 // add
 router.post('/add', (req, res) => {
-    console.log([req.body.description]);
-    console.log("Test id devisController :",req.body.selectClient)
     const newRecord = new DevisModel({
         client: req.body.selectClient,
         quantite: req.body.quantite,
@@ -202,13 +200,13 @@ router.get('/download/:id', (req, res) => {
 router.get('/delete/:id', (req, res) => {
     if (!ObjectID.isValid(req.params.id))
         return res.status(400).send("ID unknown :" + req.params.id);
-    console.log(req.params.id);
-    DevisModel.findByIdAndRemove(
-        req.params.id,
-        (err, docs) => {
-            if (!err) res.redirect("/finance/devis/view");
-            else console.log("Delete error : " + err);
-        })
+
+        DevisModel.findByIdAndRemove(
+            req.params.id,
+            (err, docs) => {
+                if (!err) res.redirect("/finance/devis/view");
+                else console.log("Delete error : " + err);
+            })
 });
 
 
