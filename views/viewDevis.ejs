@@ -42,21 +42,23 @@ Possibilité d'ajouter des articles
             <div class="row">
                 <div class="card teal lighten-1">
                     <div class="card-content white-text">
-                        <span class="card-title">Devis de <%= devi.client %></span>
+                        <div class="card-title" style="margin-bottom: 10px; font-size: xx-large;">Devis de <b><%= devi.client %></b></div>
                         
-                        <div style="margin-bottom: 20px;">
-                            <p style="margin-bottom: 2px;">Date de fin de validité : <%= devi.date %></p>
-                            <p>Description : <%= devi.description %></p>
+                        <div style="margin-bottom: 10px;">
+                            <div style="float:left; width:40%;">N° <b><%= devi.id %></b></div>
+                            <div style="text-align: right; margin-left: 40%;">Date de fin de validité : <b><%= devi.date.toDateString() %></b></div>
                         </div>
-
+                        <div style="margin-bottom: 10px;">Description : <%= devi.description %></div>
+                        
                         <div style="margin-bottom: 25px;">
-                            <span class="col s2">Quantité : <%= devi.quantite %></span>
-                            <span class="col s2">Prix : <%= devi.prix  %> €</span>
-                            <span class="col s2">TVA : <%= devi.tva  %> %</span>
-                            <span class="col s2">Reduction : <%= devi.reduction  %> €</span>
-                            <span class="col s2">Total HT : <%= devi.totalHT  %> €</span>
-                            <span class="col s2">Total TTC : <%= devi.totalTTC  %> €</span>
+                            <span class="col s2">Quantité : <b><%= devi.quantite %></b></span>
+                            <span class="col s2">Prix : <b><%= devi.prix  %> €</b></span>
+                            <span class="col s2">TVA : <b><%= devi.tva  %> %</b></span>
+                            <span class="col s2">Reduction : <b><%= devi.reduction  %> €</b></span>
+                            <span class="col s2">Total HT : <b><%= devi.totalHT  %> €</b></span>
+                            <span class="col s2">Total TTC : <b><%= devi.totalTTC  %> €</b></span>
                         </div>
+                        
                     </div>
                     <div class="card-action">
                         <a href="/devis/<%= devi.id %>" class="btn-floating teal darken-1"><i class="large material-icons">mode_edit</i></a>
