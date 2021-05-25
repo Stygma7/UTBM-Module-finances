@@ -106,7 +106,7 @@ router.post('/send', (req, res) => {
         }
     });
     
-    res.redirect("finance/devis/view");
+    res.redirect("/view");
 });
 // add
 router.post('/add', (req, res) => {
