@@ -28,6 +28,10 @@
         <div style="width: 60%">
             <canvas id="myChart2" width="400" height="400"></canvas>
         </div>
+
+        <div style="width: 60%">
+            <canvas id="myChart3" width="400" height="400"></canvas>
+        </div>
     </div>
     
     <script>
@@ -40,7 +44,7 @@
             data.push(<%= devi.prix * devi.quantite %>);
             prix.push(<%= devi.prix %>);
             quantite.push(<%= devi.quantite %>);
-            labels.push(new Date('<%= devi.date %>').toDateString());
+            labels.push('<%= devi.date.toDateString() %>');
         <% }); %>;
             
         Chart.defaults.plugins.title.display = true;
@@ -49,7 +53,7 @@
         var myChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: labels,
+                labels: ['April','May'],
                 datasets: [{
                     label: 'Prix',
                     data: prix,
@@ -74,14 +78,38 @@
             }
         });
 
-        Chart.defaults.plugins.title.text = 'Graphique2';
+        Chart.defaults.plugins.title.text = 'Nombre Devis';
+        var ctx3 = document.getElementById('myChart3').getContext('2d');
+        var myChart3 = new Chart(ctx3, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Prix',
+                    data: data,
+                    borderColor: 'rgb(255, 99, 132)',
+                    borderWidth: 4
+                    // tension: 0.1,
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+
+        Chart.defaults.plugins.title.text = 'Total HT Devis';
         var ctx2 = document.getElementById('myChart2').getContext('2d');
         var myChart2 = new Chart(ctx2, {
             type: 'bar',
             data: {
                 labels: labels,
                 datasets: [{
-                    label: 'Devis réalisés',
+                    label: 'Total HT ',
                     data: data,
                     backgroundColor: 'rgba(255, 99, 132, 0.2)',
                     borderColor: 'rgb(255, 99, 132)',
