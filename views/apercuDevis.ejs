@@ -42,8 +42,10 @@
 
  function MonDisplay(){
                 document.getElementById("fab").hidden = true;
+                document.getElementById("navbar").hidden = true;
                 window.print();
                 document.getElementById("fab").hidden = false;
+                document.getElementById("navbar").hidden = false;
             }
 
 </script>
@@ -59,6 +61,17 @@ Arcticle : quantité, prix, tva, réduction, total HT, total TTC, description
 Possibilité d'ajouter des articles 
 -->
 
+<nav id="navbar">
+    <div class="nav-wrapper teal lighten-1">
+        <a href="#!" class="brand-logo"><p class="material-icons">calculate</p>FINANCES</a>
+        <ul class="right hide-on-med-and-down">
+            <li><a href="/finance/"><i class="material-icons">home</i></a></li>
+            <li><a href="/finance/dashboard"><i class="material-icons">insert_chart</i></a></li>
+            <li><a href=""><i class="material-icons">refresh</i></a></li>
+            <li><a><i class="material-icons">more_vert</i></a></li>
+        </ul>
+    </div>
+</nav>
 
 <div class="container">
     
@@ -66,7 +79,7 @@ Possibilité d'ajouter des articles
         <div class="col s12">
             <div class="row">
                 <div class="col s12">
-                    <center><h5>DEVIS</h5></center>
+                    <center><h5>DEVIS</h5><span>n° <%= devi.id %></span></center>
                 </div>
             </div>
             <div class="row">
@@ -120,7 +133,7 @@ Possibilité d'ajouter des articles
                         <thead>
                             <tr>
                                 <th>Date de fin de validité</th>
-                                <td><%= devi.date %></td>
+                                <td><%= devi.date.toDateString() %></td>
                             </tr>
                         </thead>
                     </table>
@@ -184,7 +197,7 @@ Possibilité d'ajouter des articles
                     </a>
                     <ul>
                       <li><a class="btn-floating blue" id="print" onclick="MonDisplay()"><i class="material-icons">file_download</i></a></li>
-                      <li><a class="btn-floating yellow darken-1" href="/devis/email"><i class="material-icons">mail</i></a></li>
+                      <li><a class="btn-floating yellow darken-1" href="/finance/devis/email"><i class="material-icons">mail</i></a></li>
                       <li><a class="btn-floating green"><i class="material-icons">check</i></a></li>
                     </ul>
                   </div>
