@@ -48,6 +48,11 @@
                 document.getElementById("navbar").hidden = false;
             }
 
+    document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.tooltipped');
+    var instances = M.Tooltip.init(elems, options);
+    });
+
 </script>
 
 
@@ -66,6 +71,8 @@ Possibilité d'ajouter des articles
         <a href="#!" class="brand-logo"><div class="material-icons">calculate</div>FINANCES</a>
         <ul class="right hide-on-med-and-down">
             <li><a href="/finance"><i class="material-icons tooltipped" data-position="bottom" data-tooltip="Accueil" data-delay="0">home</i></a></li>
+            <li><a href="/finance/devis/view"><i class="material-icons tooltipped" data-position="bottom" data-tooltip="Liste des devis" data-delay="0">calculate</i></a></li>
+            <li><a href="/finance/facture/view"><i class="material-icons tooltipped" data-position="bottom" data-tooltip="Liste des factures" data-delay="0">receipt</i></a></li>
             <li><a href="/finance/dashboard"><i class="material-icons tooltipped" data-position="bottom" data-tooltip="Tableau de bord" data-delay="0">insert_chart</i></a></li>
             <li><a href=""><i class="material-icons tooltipped" data-position="bottom" data-tooltip="Rafraichir la page" data-delay="0">refresh</i></a></li>
         </ul>
@@ -195,9 +202,8 @@ Possibilité d'ajouter des articles
                       <i class="large material-icons">menu</i>
                     </a>
                     <ul>
-                      <li><a class="btn-floating blue" id="print" onclick="MonDisplay()"><i class="material-icons">file_download</i></a></li>
-                      <li><a class="btn-floating yellow darken-1" href="/finance/devis/email"><i class="material-icons">mail</i></a></li>
-                      <li><a class="btn-floating green"><i class="material-icons">check</i></a></li>
+                      <li><a class="btn-floating blue tooltipped" data-position="top" data-tooltip="Télécharger" data-delay="0" id="print" onclick="MonDisplay()"><i class="material-icons">file_download</i></a></li>
+                      <li><a class="btn-floating yellow darken-1 tooltipped" data-position="top" data-tooltip="Envoyer par mail" data-delay="0" href="/finance/devis/email"><i class="material-icons">mail</i></a></li>
                     </ul>
                   </div>
             </div>

@@ -31,11 +31,13 @@ Possibilité d'ajouter des articles
 <div class="navbar-fixed">
     <nav>
         <div class="nav-wrapper" style="background-color: #00A896;">
-            <a href="#!" class="brand-logo"><p class="material-icons">calculate</p>FINANCES</a>
+            <a href="#!" class="brand-logo"><div class="material-icons">calculate</div>FINANCES</a>
             <ul class="right hide-on-med-and-down">
-                <li><a href="/finance"><i class="material-icons">home</i></a></li>
-                <li><a href="/finance/dashboard"><i class="material-icons">insert_chart</i></a></li>
-                <li><a href=""><i class="material-icons">refresh</i></a></li>
+                <li><a href="/finance"><i class="material-icons tooltipped" data-position="bottom" data-tooltip="Accueil" data-delay="0">home</i></a></li>
+                <li><a href="/finance/devis/view"><i class="material-icons tooltipped" data-position="bottom" data-tooltip="Liste des devis" data-delay="0">calculate</i></a></li>
+                <li><a href="/finance/facture/view"><i class="material-icons tooltipped" data-position="bottom" data-tooltip="Liste des factures" data-delay="0">receipt</i></a></li>
+                <li><a href="/finance/dashboard"><i class="material-icons tooltipped" data-position="bottom" data-tooltip="Tableau de bord" data-delay="0">insert_chart</i></a></li>
+                <li><a href=""><i class="material-icons tooltipped" data-position="bottom" data-tooltip="Rafraichir la page" data-delay="0">refresh</i></a></li>
             </ul>
         </div>
     </nav>
@@ -75,7 +77,7 @@ Possibilité d'ajouter des articles
                     </div>
                     <div class="card-action">
                         <% if(facture.paye === false){ %>
-                            <a class="btn-floating green tooltipped" href="/finance/facture/signature/<%= facture.id %>" data-position="bottom" data-tooltip="Paye" data-delay="0"><i class="material-icons">playlist_add_check</i></a>
+                            <a class="btn-floating green tooltipped" href="/finance/facture/signature/<%= facture.id %>" data-position="bottom" data-tooltip="Payer" data-delay="0"><i class="material-icons">playlist_add_check</i></a>
                         <% } %>
                         <a class="btn-floating red tooltipped" href="/finance/facture/delete/<%= facture.id %>" data-position="bottom" data-tooltip="Supprimer" data-delay="0"><i class="material-icons">delete</i></a>
                         <a class="btn-floating teal accent-4 tooltipped" href="/finance/facture/download/<%= facture.id %>" data-position="bottom" data-tooltip="Aperçu" data-delay="0"><i class="material-icons">remove_red_eye</i></a>
@@ -86,7 +88,7 @@ Possibilité d'ajouter des articles
     </div>
     <% }); %>
     <div class="fixed-action-btn">
-        <a href="/finance/facture/new" class="btn-floating btn-large teal tooltipped" data-position="left" data-tooltip="Nouveau facture" data-delay="0"><i class="large material-icons">add</i></a>
+        <a href="/finance/facture/new" class="btn-floating btn-large teal tooltipped" data-position="left" data-tooltip="Nouvelle facture" data-delay="0"><i class="large material-icons">add</i></a>
     </div>
 </div>
 
