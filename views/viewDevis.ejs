@@ -52,13 +52,14 @@ Possibilité d'ajouter des articles
             <div class="row">
 
                 <div class="card" <% if(devi.signe === true){ %> style="background-color: #00A896;"<% }else{ %> style="background-color: #028090;" <% } %>>
-                    <!-- <div <% if(devi.signe === true){ %> class="card" style="background-color: #05668D;"<% }else{ %> class="card teal darken-1" <% } %>> -->
 
                     <div class="card-content white-text">
                         <% if(devi.signe === true){ %>
-                            <div style="float:right;"><i class="material-icons" style="font-size: 2.5rem;">done</i></div>
+                            <div style="float:right;"><i class="material-icons" style="font-size: 2.5rem; color: #05668D;">done</i></div>
                         <% } %>
-                        <div class="card-title" style="margin-bottom: 10px; font-size: xx-large;">Devis de <b><%= devi.client %></b></div>
+                        <div class="card-title" style="margin-bottom: 10px; font-size: xx-large;">Devis de <b><%= devi.client %></b> <% if(devi.signe === true){ %> <i style="font-size: 20px;">(signé)</i> <% } %></div>
+                        
+                        
                         
                         <div style="margin-bottom: 10px;">
                             <div style="float:left; width:40%;">N° <%= devi.id %></div>
