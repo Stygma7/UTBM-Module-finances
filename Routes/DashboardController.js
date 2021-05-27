@@ -4,7 +4,7 @@ const router = express.Router();
 const app = express();
 const bodyParser = require('body-parser');
 
-const { DevisModel } = require('../Models/DevisModel');
+const { DevisModel } = require('../Models/Model');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
