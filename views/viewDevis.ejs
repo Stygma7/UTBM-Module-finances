@@ -76,13 +76,15 @@ Possibilité d'ajouter des articles
                     </div>
                     <div class="card-action">
                         <% if(devi.signe === true){ %>
-                            <a class="btn-floating orange orange-darken-4 tooltipped" data-position="bottom" data-tooltip="Transformer en facture" data-delay="0"><i class="material-icons">exit_to_app</i></a>
+                            <% if(devi.factureExist === false){ %>
+                                <a class="btn-floating orange orange-darken-4 tooltipped" href="/finance/facture/new/<%= devi.id %>" data-position="bottom" data-tooltip="Transformer en facture" data-delay="0"><i class="material-icons">exit_to_app</i></a>
+                            <% } %>
                         <% } else{ %>
                             <a class="btn-floating teal darken-1 tooltipped" href="/finance/devis/apercu/<%= devi.id %>" data-position="bottom" data-tooltip="Modifier" data-delay="0"><i class="large material-icons">mode_edit</i></a>
                             <a class="btn-floating green tooltipped" href="/finance/devis/signature/<%= devi.id %>" data-position="bottom" data-tooltip="Signer" data-delay="0"><i class="material-icons">playlist_add_check</i></a>
                         <% } %>
                         <a class="btn-floating red tooltipped" href="/finance/devis/delete/<%= devi.id %>" data-position="bottom" data-tooltip="Supprimer" data-delay="0"><i class="material-icons">delete</i></a>
-                        <a class="btn-floating teal accent-4 tooltipped" href="/finance/devis/download/<%= devi.id %>" data-position="bottom" data-tooltip="Télécharger" data-delay="0"><i class="material-icons">file_download</i></a>
+                        <a class="btn-floating teal accent-4 tooltipped" href="/finance/devis/download/<%= devi.id %>" data-position="bottom" data-tooltip="Aperçu" data-delay="0"><i class="material-icons">remove_red_eye</i></a>
                     </div>
                 </div>
             </div>

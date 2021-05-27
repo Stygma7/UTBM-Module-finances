@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const DevisController = require('../Routes/DevisController');
 const DashboardController = require('../Routes/DashboardController');
+const FacturesController = require('../Routes/FacturesController');
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
@@ -19,6 +20,7 @@ const middlewares = [
 app.use(middlewares);
 app.use('/finance/devis', DevisController);
 app.use('/finance/dashboard', DashboardController);
+app.use('/finance/facture', FacturesController);
 
 
 

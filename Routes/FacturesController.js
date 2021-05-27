@@ -22,53 +22,47 @@ let transporter = nodemailer.createTransport({
 
 //pajazitiduresa@hotmail.com,matthieu.hirth.68@gmail.com,hugo.laurent@utbm.fr
 
-// let mailContent={
-//     from: 'noreply.finances.ta70',
-//     to: 'antoine.mure.am@gmail.com',
-//     subject: 'First Node.js email',
-//     text: 'Hi,This is a test mail sent using Nodemailer',
-//     html: '<h1>COUCOU ! Voici un test</h1>',
-//     attachments: [
-//         {
-//             filename: 'image1.jpg',
-//             path: __dirname + '/image1.jpg'
-//         }
-//     ]
-// };
-
-// transporter.sendMail(mailContent, function(error, data){
-//     if(err){
-//         console.log('Unable to send mail');
-//     }else{
-//         console.log('Email send successfully');
-//     }
-// });
-//------------------FIN MAIL----------------------------------------------
-
-// const devis = new DevisModel({ client: 'Hugo', TVA: 20 });
-// console.log(devis.name); // 'Silence'
-
-// const middlewares = [
-//     // ...
-// bodyParser.urlencoded({ extended: true })
-//
-// ];
-
 app.use(bodyParser.urlencoded({ extended: true }));
 
-router.get('/new', (req, res) => {
-    DevisModel.find((err, devis) => {
-        if (!err) {
-            // res.send(docs);
-            res.render("newDevis", { devis: devis });
-            //console.log(devis[0].client);
+router.get('/new/:id', (req, res) => {
+    if (!ObjectID.isValid(req.params.id))
+        return res.status(400).send("ID unknown :" + req.params.id);
+
+    const updateRecord = {
+        factureExist: true
+    };
+    
+    DevisModel.findByIdAndUpdate(
+        req.params.id,
+        { $set: updateRecord },
+        { new: true },
+        (err, devis) => {
+
+            if (!err) {
+                const newRecord = new FactureModel({
+                    client: devis.client,
+                    quantite: devis.quantite,
+                    prix: devis.prix,
+                    tva: devis.tva,
+                    reduction: devis.reduction,
+                    totalHT: devis.totalHT,
+                    totalTTC: devis.totalTTC,
+                    description: devis.description,
+                    date: devis.date
+                });
+                // res.send(newRecord);
+                newRecord.save((err, devi) => {
+                    if (!err) res.redirect("/finance/devis/view");
+                    else console.log('Erreur création nouvelles données :' + err);
+                });
+            }
+            else console.log("Update error :" + err);
         }
-        else console.log("Error to get data : " + err);
-    })
+    )
 });
 
 router.get('/view', (req, res) => {
-    DevisModel.find((err, devis) => {
+    FactureModel.find((err, devis) => {
         if (!err) {
             // res.send(docs);
             res.render("viewDevis", { devis: devis });
@@ -109,7 +103,7 @@ router.post('/send', (req, res) => {
 });
 // add
 router.post('/add', (req, res) => {
-    const newRecord = new DevisModel({
+    const newRecord = new FactureModel({
         client: req.body.selectClient,
         quantite: req.body.quantite,
         prix: req.body.prix,
@@ -144,7 +138,7 @@ router.get('/apercu/:id', (req, res) => {
     if (!ObjectID.isValid(req.params.id))
         return res.status(400).send("ID unknown :" + req.params.id);
 
-    DevisModel.findById(req.params.id, (err, devis) => {
+        FactureModel.findById(req.params.id, (err, devis) => {
         if (!err) {
             // res.send(docs);
             res.render("updateDevis", { devis: devis });
@@ -162,7 +156,7 @@ router.get('/signature/:id', (req, res) => {
             signe: true
         };
         
-        DevisModel.findByIdAndUpdate(
+        FactureModel.findByIdAndUpdate(
             req.params.id,
             { $set: updateRecord },
             { new: true },
@@ -192,7 +186,7 @@ router.post('/update/:id', (req, res) => {
             date: req.body.date_val
         };
         
-        DevisModel.findByIdAndUpdate(
+        FactureModel.findByIdAndUpdate(
             req.params.id,
             { $set: updateRecord },
             { new: true },
@@ -207,7 +201,7 @@ router.get('/download/:id', (req, res) => {
     if (!ObjectID.isValid(req.params.id))
         return res.status(400).send("ID unknown :" + req.params.id);
         
-        DevisModel.findById(
+        FactureModel.findById(
             req.params.id,
             (err, devi) => {
                 if (!err) res.render("apercuDevis", { devi: devi });
@@ -220,7 +214,7 @@ router.get('/delete/:id', (req, res) => {
     if (!ObjectID.isValid(req.params.id))
         return res.status(400).send("ID unknown :" + req.params.id);
 
-        DevisModel.findByIdAndRemove(
+        FactureModel.findByIdAndRemove(
             req.params.id,
             (err, docs) => {
                 if (!err) res.redirect("/finance/devis/view");
