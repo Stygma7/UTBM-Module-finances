@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Finance</title>
+
+    <meta name = "viewport" content = "width = device-width, initial-scale = 1">
+    <link rel = "stylesheet" href = "https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.tooltipped');
+        var instances = M.Tooltip.init(elems, options);
+    });
+    </script>
+
+
+</head>
+
+<body>
+<!--
+Client (destinataire),
+Duree de validité (exemple calendrier ou bare),
+Arcticle : quantité, prix, tva, réduction, total HT, total TTC, description
+Possibilité d'ajouter des articles
+-->
+
+<div class="navbar-fixed">
+    <nav>
+        <div class="nav-wrapper" style="background-color: #00A896;">
+            <a href="#!" class="brand-logo"><p class="material-icons">calculate</p>FINANCES</a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="/finance"><i class="material-icons">home</i></a></li>
+                <li><a href="/finance/dashboard"><i class="material-icons">insert_chart</i></a></li>
+                <li><a href=""><i class="material-icons">refresh</i></a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+<div class="container">
+
+    <h3>Toute les factures</h3>
+    <% factures.forEach(function(facture) {%>
+    <div class="row">
+        <div class="col s12">
+            <div class="row">
+
+                <div class="card" <% if(facture.paye === true){ %> style="background-color: #00A896;"<% }else{ %> style="background-color: #028090;" <% } %>>
+
+                    <div class="card-content white-text">
+                        <% if(facture.paye === true){ %>
+                            <div style="float:right;"><i class="material-icons">done</i></div>
+                        <% } %>
+                        <div class="card-title" style="margin-bottom: 10px; font-size: xx-large;">Facture de <b><%= facture.client %></b></div>
+                        
+                        <div style="margin-bottom: 10px;">
+                            <div style="float:left; width:40%;">N° <%= facture.id %></div>
+                            <div style="text-align: right; margin-left: 40%;">Date de fin de validité : <b><%= facture.date.toDateString() %></b></div>
+                        </div>
+                        <div style="margin-bottom: 10px;">Description : <%= facture.description %></div>
+                        
+                        <div style="margin-bottom: 25px;">
+                            <span class="col s2">Quantité : <b><%= facture.quantite %></b></span>
+                            <span class="col s2">Prix : <b><%= facture.prix  %> €</b></span>
+                            <span class="col s2">TVA : <b><%= facture.tva  %> %</b></span>
+                            <span class="col s2">Reduction : <b><%= facture.reduction  %> €</b></span>
+                            <span class="col s2">Total HT : <b><%= facture.totalHT  %> €</b></span>
+                            <span class="col s2">Total TTC : <b><%= facture.totalTTC  %> €</b></span>
+                        </div>
+                        
+                    </div>
+                    <div class="card-action">
+                        <% if(facture.paye === false){ %>
+                            <a class="btn-floating green tooltipped" href="/finance/facture/signature/<%= facture.id %>" data-position="bottom" data-tooltip="Paye" data-delay="0"><i class="material-icons">playlist_add_check</i></a>
+                        <% } %>
+                        <a class="btn-floating red tooltipped" href="/finance/facture/delete/<%= facture.id %>" data-position="bottom" data-tooltip="Supprimer" data-delay="0"><i class="material-icons">delete</i></a>
+                        <a class="btn-floating teal accent-4 tooltipped" href="/finance/facture/download/<%= facture.id %>" data-position="bottom" data-tooltip="Aperçu" data-delay="0"><i class="material-icons">remove_red_eye</i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <% }); %>
+    <div class="fixed-action-btn">
+        <a href="/finance/facture/new" class="btn-floating btn-large teal tooltipped" data-position="left" data-tooltip="Nouveau facture" data-delay="0"><i class="large material-icons">add</i></a>
+    </div>
+</div>
+
+</body>

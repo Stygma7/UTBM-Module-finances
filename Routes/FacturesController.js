@@ -62,10 +62,10 @@ router.get('/new/:id', (req, res) => {
 });
 
 router.get('/view', (req, res) => {
-    FactureModel.find((err, devis) => {
+    FactureModel.find((err, factures) => {
         if (!err) {
             // res.send(docs);
-            res.render("viewDevis", { devis: devis });
+            res.render("viewFactures", { factures : factures });
             //console.log(devis[0].client);
         }
         else console.log("Error to get data : " + err);
