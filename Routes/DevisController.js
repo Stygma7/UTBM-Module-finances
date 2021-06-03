@@ -10,6 +10,62 @@ const { FactureModel } = require('../Models/Model');
 const path = require('path');
 const DLPath = path.join(__dirname, '/../Telechargements/');
 
+//-------------------------------------------------------------
+
+var request = require('request');
+
+var headers = {
+    'accept': 'application/json',
+    'Content-Type': 'application/x-www-form-urlencoded'
+};
+
+var dataString = 'grant_type=&username=finances&password=finances!&scope=seller%20manager&client_id=&client_secret=';
+
+var options = {
+    url: 'https://ta70-sales-backend.herokuapp.com/security/token',
+    method: 'POST',
+    headers: headers,
+    body: dataString
+};
+
+var access_token;
+
+function callback_token(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        var rep = JSON.parse(body);
+        access_token = rep.access_token;
+        console.log(access_token);
+    }
+}
+
+request(options, callback_token);
+
+//var access_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmaW5hbmNlcyIsInNjb3BlcyI6WyJzZWxsZXIiLCJtYW5hZ2VyIl0sImV4cCI6MTYyMjYzNTQ4MX0.jnczv144P0Ua2y4mD3iGTQE4vka7mPIg0BO18BMsL4c';
+// if (access_token != null) {
+
+//     var request = require('request');
+    
+//     var headers = {
+//         'accept': 'application/json',
+//         'Authorization': 'Bearer ' + {access_token}
+//     };
+    
+//     var options = {
+//         url: 'https://ta70-sales-backend.herokuapp.com/persons/?skip=0',
+//         headers: headers
+//     };
+    
+//     function callback(error, response, body) {
+//         console.log('2' + body);
+//         if (!error && response.statusCode == 200) {
+//             console.log(body);
+//         }
+//     }
+    
+//     request(options, callback);
+// }
+
+
 //----------------MAIL----------------------------------------------------
 const nodemailer = require('nodemailer');
 let transporter = nodemailer.createTransport({
@@ -19,6 +75,7 @@ let transporter = nodemailer.createTransport({
         pass: '8@9KVzbb'
     }
 });
+
 
 //pajazitiduresa@hotmail.com,matthieu.hirth.68@gmail.com,hugo.laurent@utbm.fr
 
@@ -57,6 +114,31 @@ let transporter = nodemailer.createTransport({
 app.use(bodyParser.urlencoded({ extended: true }));
 
 router.get('/new', (req, res) => {
+
+    if (access_token != null) {
+
+        var request = require('request');
+        
+        var headers = {
+            'accept': 'application/json',
+            'Authorization': 'Bearer ' + access_token
+        };
+        
+        var options = {
+            url: 'https://ta70-sales-backend.herokuapp.com/persons/?skip=0',
+            headers: headers
+        };
+        
+        function callback(error, response, body) {
+            console.log('2' + body);
+            if (!error && response.statusCode == 200) {
+                console.log(body);
+            }
+        }
+        
+        request(options, callback);
+    }
+
     DevisModel.find((err, devis) => {
         if (!err) {
             // res.send(docs);
