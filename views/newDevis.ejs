@@ -80,8 +80,8 @@ Possibilité d'ajouter des articles
                         <div class="input-field col s12">
                             <select name="selectClient" id="selectClient">
                                 <option value="" disabled selected>Sélectionner un destinataire</option>
-                                <% devis.forEach(function(devi) {%>
-                                <option name="nomClient" value="<%= devi.client %>"><%= devi.client %></option>
+                                <% dataClients.forEach(function(dataClient) {%>
+                                <option name="nomClient" value="<%= dataClient.first_name %>"><%= dataClient.first_name %></option>
                                 <% }); %>
                             </select>
                             <label for="selectClient">Destinataire</label>

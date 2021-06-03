@@ -130,8 +130,9 @@ router.get('/new', (req, res) => {
         };
         
         function callback(error, response, body) {
-            console.log('2' + body);
             if (!error && response.statusCode == 200) {
+                //res.send(JSON.parse(body));
+                res.render("newDevis", { dataClients: JSON.parse(body) });
                 console.log(body);
             }
         }
@@ -139,14 +140,14 @@ router.get('/new', (req, res) => {
         request(options, callback);
     }
 
-    DevisModel.find((err, devis) => {
-        if (!err) {
-            // res.send(docs);
-            res.render("newDevis", { devis: devis });
-            //console.log(devis[0].client);
-        }
-        else console.log("Error to get data : " + err);
-    })
+    // DevisModel.find((err, devis) => {
+    //     if (!err) {
+    //         //res.send(devis);
+    //         //res.render("newDevis", { dataClients: devis });
+    //         //console.log(devis[0].client);
+    //     }
+    //     else console.log("Error to get data : " + err);
+    // })
 });
 
 router.get('/view', (req, res) => {
