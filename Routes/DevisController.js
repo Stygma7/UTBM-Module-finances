@@ -133,7 +133,7 @@ router.get('/new', (req, res) => {
             if (!error && response.statusCode == 200) {
                 //res.send(JSON.parse(body));
                 res.render("newDevis", { dataClients: JSON.parse(body) });
-                console.log(body);
+                //console.log(body);
             }
         }
         

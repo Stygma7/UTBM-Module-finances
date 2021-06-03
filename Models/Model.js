@@ -41,6 +41,10 @@ const DevisModel = mongoose.model(
             type: Date,
             default: Date.now
         },
+        dateCreation: {
+            type: Date,
+            default: Date.now
+        },
         signe: {
             type: Boolean,
             default: false
@@ -91,6 +95,10 @@ const FactureModel = mongoose.model(
             type: String,
         },
         date: {
+            type: Date,
+            default: Date.now
+        },
+        dateCreation: {
             type: Date,
             default: Date.now
         },

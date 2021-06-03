@@ -41,17 +41,40 @@
     </div>
     
     <script>
-        var data = [];
-        var prix = [];
+        var totalHT = [];
+        var totalTTC = [];
         var quantite = [];
-        var labels = [];
-        
+        var date = [];
+        var nbDevis = [];
+        <%
+        function returnStringDate(dt) {
+            let d = new Date(dt);
+            //let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
+            let mo = new Intl.DateTimeFormat('en', { month: 'long' }).format(d);
+            //let da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(d);
+            return `${mo}`;
+        } %>
+
         <% devis.forEach(function(devi) {%>
-            data.push(<%= devi.prix * devi.quantite %>);
-            prix.push(<%= devi.prix %>);
+            var month = '<%= returnStringDate(devi.date) %>';
+            var index = date.indexOf(month);
             quantite.push(<%= devi.quantite %>);
-            labels.push('<%= devi.date.toDateString() %>');
-        <% }); %>;
+
+            if(index===-1){
+                date.push(month);
+                totalTTC.push(<%= devi.totalTTC %>);
+                totalHT.push(<%= devi.totalHT %>);
+                nbDevis.push(1);
+            } else {
+                totalTTC.splice(index, 1, totalTTC[index]+<%= devi.totalTTC %>);
+                totalHT.splice(index, 1, totalHT[index]+<%= devi.totalHT %>);
+                nbDevis.splice(index, 1, nbDevis[index]+1);
+            }
+            console.log(date);
+            console.log(totalTTC);
+            console.log(totalHT);
+            console.log(nbDevis);
+        <% }); %>
             
         Chart.defaults.plugins.title.display = true;
         Chart.defaults.plugins.title.text = 'Données devis';
@@ -59,17 +82,17 @@
         var myChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: ['April','May'],
+                labels: date,
                 datasets: [{
-                    label: 'Prix',
-                    data: prix,
+                    label: 'Prix TTC',
+                    data: totalTTC,
                     borderColor: 'rgb(255, 99, 132)',
                     borderWidth: 4
                     // tension: 0.1,
                 },
                 {
-                    label: 'Quantite',
-                    data: quantite,
+                    label: 'Nombre de Devis',
+                    data: nbDevis,
                     borderColor: 'rgb(75, 192, 192)',
                     borderWidth: 4
                     // tension: 0.1,
@@ -84,18 +107,19 @@
             }
         });
 
-        Chart.defaults.plugins.title.text = 'Nombre Devis';
-        var ctx3 = document.getElementById('myChart3').getContext('2d');
-        var myChart3 = new Chart(ctx3, {
-            type: 'line',
+        Chart.defaults.plugins.title.text = 'Total HT Devis';
+        var ctx2 = document.getElementById('myChart2').getContext('2d');
+        var myChart2 = new Chart(ctx2, {
+            type: 'bar',
             data: {
-                labels: labels,
+                labels: date,
                 datasets: [{
-                    label: 'Prix',
-                    data: data,
+                    label: 'Total HT ',
+                    data: totalHT,
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
                     borderColor: 'rgb(255, 99, 132)',
-                    borderWidth: 4
                     // tension: 0.1,
+                    borderWidth: 2
                 }]
             },
             options: {
@@ -108,19 +132,18 @@
         });
 
 
-        Chart.defaults.plugins.title.text = 'Total HT Devis';
-        var ctx2 = document.getElementById('myChart2').getContext('2d');
-        var myChart2 = new Chart(ctx2, {
-            type: 'bar',
+        Chart.defaults.plugins.title.text = 'Nombre Devis';
+        var ctx3 = document.getElementById('myChart3').getContext('2d');
+        var myChart3 = new Chart(ctx3, {
+            type: 'line',
             data: {
-                labels: labels,
+                labels: date,
                 datasets: [{
-                    label: 'Total HT ',
-                    data: data,
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    label: 'Prix',
+                    data: totalTTC,
                     borderColor: 'rgb(255, 99, 132)',
+                    borderWidth: 4
                     // tension: 0.1,
-                    borderWidth: 2
                 }]
             },
             options: {
