@@ -38,6 +38,10 @@
         <div style="width: 60%">
             <canvas id="myChart3" width="400" height="400"></canvas>
         </div>
+
+        <div style="width: 60%">
+            <canvas id="myChart4" width="400" height="400"></canvas>
+        </div>
     </div>
     
     <script>
@@ -46,6 +50,7 @@
         var quantite = [];
         var date = [];
         var nbDevis = [];
+        var total = [];
         <%
         function returnStringDate(dt) {
             let d = new Date(dt);
@@ -54,9 +59,10 @@
             //let da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(d);
             return `${mo}`;
         } %>
-
+        var nbTotalDevis = 0;
+        var nbTotalDevisSigne = 0;
         <% devis.forEach(function(devi) {%>
-            var month = '<%= returnStringDate(devi.date) %>';
+            var month = '<%= returnStringDate(devi.dateCreation) %>';
             var index = date.indexOf(month);
             quantite.push(<%= devi.quantite %>);
 
@@ -70,12 +76,35 @@
                 totalHT.splice(index, 1, totalHT[index]+<%= devi.totalHT %>);
                 nbDevis.splice(index, 1, nbDevis[index]+1);
             }
-            console.log(date);
+            /*console.log(date);
             console.log(totalTTC);
             console.log(totalHT);
-            console.log(nbDevis);
+            console.log(nbDevis);*/
+
+            if(<%= devi.signe %>==true){
+                nbTotalDevisSigne++;
+            }else{
+                nbTotalDevis++;
+            }
         <% }); %>
-            
+
+
+        var nbTotalFacture = 0;
+        var nbTotalFacturePaye = 0;
+        <% factures.forEach(function(facture) {%>
+            if(<%= facture.paye %>==true){
+                nbTotalFacturePaye++;
+            }else{
+                nbTotalFacture++;
+            }
+        <% }); %>
+        console.log(nbTotalDevis);
+        console.log(nbTotalDevisSigne);
+        total.push(nbTotalDevis);
+        total.push(nbTotalDevisSigne);
+        total.push(nbTotalFacture);
+        total.push(nbTotalFacturePaye);
+
         Chart.defaults.plugins.title.display = true;
         Chart.defaults.plugins.title.text = 'Données devis';
         var ctx = document.getElementById('myChart').getContext('2d');
@@ -154,6 +183,31 @@
                 }
             }
         });
+
+        Chart.defaults.plugins.title.text = 'Nombre Total de Devis : '+ (total[0]+total[1])+'  Nombre Total de Factures : '+ (total[2]+total[3]);
+        var ctx4 = document.getElementById('myChart4').getContext('2d');
+        var myChart4 = new Chart(ctx4, {
+            type: 'pie',
+            data: data = {
+                labels: ['nbTotalDevisNonSigné', 'nbTotalDevisSigné', 'nbTotalFactureNonPayé', 'nbTotalFacturePayé'],
+                datasets: [
+                    {
+                        label: 'Dataset 1',
+                        data: total,
+                        backgroundColor: ['Red', 'Orange', 'Yellow', 'Green', 'Blue'],
+                    }
+                ],
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    }
+                }
+            }
+        });
+
     </script>
 </body>
 </html>
