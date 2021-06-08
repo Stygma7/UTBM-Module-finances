@@ -43,19 +43,24 @@ Possibilité d'ajouter des articles
                 <form action="/finance/devis/send" method="POST">
                     <div class="row">
                         <div class="input-field col s12">
-                            <input type="text" id="emailDestinataire"  name="emailDestinataire" class="autocomplete" required>
+                            <% if(infos.email == null){ %>
+                                <input type="text" id="emailDestinataire"  name="emailDestinataire" class="autocomplete" required>
+                             <% } else{ %>
+                                <input type="text" id="emailDestinataire"  name="emailDestinataire" class="autocomplete" value="<%= infos.email %>" required>
+
+                            <% } %>
                             <label for="destinataire">Email du destinataire</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
-                            <input type="text" id="emailObjet"  name="emailObjet" class="autocomplete" required>
+                            <input type="text" id="emailObjet"  name="emailObjet" class="autocomplete" value="<%= infos.objet %>" required>
                             <label for="objet">Objet</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
-                            <textarea id="emailMessage" name="emailMessage" class="materialize-textarea" required></textarea>
+                            <textarea id="emailMessage" name="emailMessage" class="materialize-textarea" required><%= infos.message %></textarea>
                             <label for="message">Message</label>
                         </div>
                     </div>

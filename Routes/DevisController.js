@@ -161,8 +161,63 @@ router.get('/view', (req, res) => {
     })
 });
 
-router.get('/email', (req, res) => {
-    res.render("sendDevis");
+router.get('/email/:id', (req, res) => {
+    if (!ObjectID.isValid(req.params.id))
+    return res.status(400).send("ID unknown :" + req.params.id);
+
+    DevisModel.findById(req.params.id, (err, devis) => {
+        if (!err) {
+            // res.send(docs);
+            if (access_token != null) {
+
+                var request = require('request');
+                
+                var headers = {
+                    'accept': 'application/json',
+                    'Authorization': 'Bearer ' + access_token
+                };
+                
+                var options = {
+                    url: 'https://ta70-sales-backend.herokuapp.com/persons/?skip=0',
+                    headers: headers
+                };
+                
+                function callback(error, response, body) {
+                    if (!error && response.statusCode == 200) {
+                        var bodyParsed = JSON.parse(body);
+                        var clientTrouve = false;
+                        //console.log(toto);
+                        bodyParsed.forEach(element => {
+                            //console.log('Nom de la BD : ' + element.first_name + ' ; Nom recherché : ' + devis.client);
+                            if(element.first_name == devis.client){
+                                var infos = {
+                                    client : devis.client,
+                                    email : element.email,
+                                    objet : 'Votre devis MedicHome',
+                                    message : 'Bonjour ' + devis.client + ',\n\nNous avons le plaisir de vous adresser votre devis en pièce jointe.\n\nBien cordialement,\nl\'équipe MedicHome.'
+                                }
+                                res.render("sendDevis", { infos: infos });
+                                clientTrouve = true;
+                            }
+                        });
+                            if (!clientTrouve){
+                                var infos = {
+                                    client : devis.client,
+                                    email : null,
+                                    objet : 'Votre devis MedicHome',
+                                    message : 'Bonjour ' + devis.client + ',\n\nNous avons le plaisir de vous adresser votre devis en pièce jointe.\n\nBien cordialement,\nl\'équipe MedicHome.'
+                                }
+                                res.render("sendDevis", { infos: infos });
+                            }
+                    } else console.log('erreur');
+                }
+                
+                request(options, callback);
+            }
+            
+            //console.log(devis[0].client);
+        } else console.log("Error to get data : " + err);
+    })
 });
 
 router.post('/send', (req, res) => {
