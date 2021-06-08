@@ -68,7 +68,11 @@ Possibilité d'ajouter des articles
 
 <nav id="navbar">
     <div class="nav-wrapper" style="background-color: #00A896;">
-        <a href="#!" class="brand-logo"><div class="material-icons">calculate</div>DEVIS</a>
+        <% if(devi.factureExist == null){ %>
+            <a href="#!" class="brand-logo"><div class="material-icons">receipt</div>FACTURES</a>
+         <% } else{ %>
+            <a href="#!" class="brand-logo"><div class="material-icons">calculate</div>DEVIS</a>
+        <% } %>
         <ul class="right hide-on-med-and-down">
             <li><a href="/finance"><i class="material-icons tooltipped" data-position="bottom" data-tooltip="Accueil" data-delay="0">home</i></a></li>
             <li><a href="/finance/devis/view"><i class="material-icons tooltipped" data-position="bottom" data-tooltip="Liste des devis" data-delay="0">calculate</i></a></li>
@@ -85,8 +89,6 @@ Possibilité d'ajouter des articles
         <div class="col s12">
             <div class="row">
                 <div class="col s12">
-                    <!-- <center><h5>DEVIS</h5><span>n° <%= devi.factureExist %></span></center> -->
-
                     <% if(devi.factureExist == null){ %>
                         <center><h5>FACTURE</h5><span>n° <%= devi.id %></span></center>
                      <% } else{ %>

@@ -40,32 +40,6 @@ function callback_token(error, response, body) {
 
 request(options, callback_token);
 
-//var access_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmaW5hbmNlcyIsInNjb3BlcyI6WyJzZWxsZXIiLCJtYW5hZ2VyIl0sImV4cCI6MTYyMjYzNTQ4MX0.jnczv144P0Ua2y4mD3iGTQE4vka7mPIg0BO18BMsL4c';
-// if (access_token != null) {
-
-//     var request = require('request');
-    
-//     var headers = {
-//         'accept': 'application/json',
-//         'Authorization': 'Bearer ' + {access_token}
-//     };
-    
-//     var options = {
-//         url: 'https://ta70-sales-backend.herokuapp.com/persons/?skip=0',
-//         headers: headers
-//     };
-    
-//     function callback(error, response, body) {
-//         console.log('2' + body);
-//         if (!error && response.statusCode == 200) {
-//             console.log(body);
-//         }
-//     }
-    
-//     request(options, callback);
-// }
-
-
 //----------------MAIL----------------------------------------------------
 const nodemailer = require('nodemailer');
 let transporter = nodemailer.createTransport({
@@ -184,13 +158,21 @@ router.get('/email/:id', (req, res) => {
                 
                 function callback(error, response, body) {
                     if (!error && response.statusCode == 200) {
-                        var bodyParsed = JSON.parse(body);
+                        var toto = JSON.parse(body);
                         var clientTrouve = false;
+                        var infos = {
+                            isDevis : true,
+                            client : devis.client,
+                            email : null,
+                            objet : 'Votre devis MedicHome',
+                            message : 'Bonjour ' + devis.client + ',\n\nNous avons le plaisir de vous adresser votre devis en pièce jointe.\n\nBien cordialement,\nl\'équipe MedicHome.'
+                        }
                         //console.log(toto);
-                        bodyParsed.forEach(element => {
+                        toto.forEach(element => {
                             //console.log('Nom de la BD : ' + element.first_name + ' ; Nom recherché : ' + devis.client);
                             if(element.first_name == devis.client){
-                                var infos = {
+                                infos = {
+                                    isDevis : true,
                                     client : devis.client,
                                     email : element.email,
                                     objet : 'Votre devis MedicHome',
@@ -201,12 +183,6 @@ router.get('/email/:id', (req, res) => {
                             }
                         });
                             if (!clientTrouve){
-                                var infos = {
-                                    client : devis.client,
-                                    email : null,
-                                    objet : 'Votre devis MedicHome',
-                                    message : 'Bonjour ' + devis.client + ',\n\nNous avons le plaisir de vous adresser votre devis en pièce jointe.\n\nBien cordialement,\nl\'équipe MedicHome.'
-                                }
                                 res.render("sendDevis", { infos: infos });
                             }
                     } else console.log('erreur');

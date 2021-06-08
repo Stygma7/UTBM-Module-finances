@@ -14,6 +14,7 @@
         document.addEventListener('DOMContentLoaded', function() {
         var elems = document.querySelectorAll('.tooltipped');
         var instances = M.Tooltip.init(elems, options);
+        var maintenant = new Date();
     });
     </script>
 
@@ -31,7 +32,7 @@ Possibilité d'ajouter des articles
 <div class="navbar-fixed">
     <nav>
         <div class="nav-wrapper" style="background-color: #00A896;">
-            <a href="#!" class="brand-logo"><div class="material-icons">calculate</div>FACTURES</a>
+            <a href="#!" class="brand-logo"><div class="material-icons">receipt</div>FACTURES</a>
             <ul class="right hide-on-med-and-down">
                 <li><a href="/finance"><i class="material-icons tooltipped" data-position="bottom" data-tooltip="Accueil" data-delay="0">home</i></a></li>
                 <li><a href="/finance/devis/view"><i class="material-icons tooltipped" data-position="bottom" data-tooltip="Liste des devis" data-delay="0">calculate</i></a></li>
@@ -73,7 +74,17 @@ Possibilité d'ajouter des articles
                             <span class="col s2">Total HT : <b><%= facture.totalHT  %> €</b></span>
                             <span class="col s2">Total TTC : <b><%= facture.totalTTC  %> €</b></span>
                         </div>
-                        
+
+                        <% if((facture.date < new Date()) && (facture.paye === false)){ %>
+                            <div style="margin-top: 50px;">
+                                <div style="float:left; width:60%;"><i class="material-icons left" style="color: #ef5350 ">report</i>La facture est arrivée à échéance</div>
+                            </div>
+                        <% } else if((facture.date.setDate(facture.date.getDate()-10) < new Date()) && (facture.paye === false)){ %>
+                            <div style="margin-top: 50px;">
+                                <div style="float:left; width:60%;"><i class="material-icons left" style="color: #fbc02d">info_outline</i>La facture arrivera à échéance dans moins de 10 jours</div>
+                            </div>
+                        <% } %>
+
                     </div>
                     <div class="card-action">
                         <% if(facture.paye === false){ %>
@@ -81,15 +92,16 @@ Possibilité d'ajouter des articles
                         <% } %>
                         <a class="btn-floating red tooltipped" href="/finance/facture/delete/<%= facture.id %>" data-position="bottom" data-tooltip="Supprimer" data-delay="0"><i class="material-icons">delete</i></a>
                         <a class="btn-floating teal accent-4 tooltipped" href="/finance/facture/download/<%= facture.id %>" data-position="bottom" data-tooltip="Aperçu" data-delay="0"><i class="material-icons">remove_red_eye</i></a>
+                        <% if((facture.date < new Date()) && (facture.paye === false)){ %>
+                            <!-- <a class="btn-floating red tooltipped" href="/finance/facture/signature/<%= facture.id %>" data-position="bottom" data-tooltip="Payer" data-delay="0"><i class="material-icons">playlist_add_check</i></a> -->
+                            <a class="btn-floating yellow darken-2 tooltipped" data-position="bottom" data-tooltip="Envoyer un rappel" data-delay="0" href="/finance/facture/email/<%= facture.id %>"><i class="material-icons">mail</i></a>
+                        <% } %>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <% }); %>
-    <div class="fixed-action-btn">
-        <a href="/finance/facture/new" class="btn-floating btn-large teal tooltipped" data-position="left" data-tooltip="Nouvelle facture" data-delay="0"><i class="large material-icons">add</i></a>
-    </div>
 </div>
 
 </body>
