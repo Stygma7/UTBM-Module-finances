@@ -56,9 +56,9 @@ Possibilité d'ajouter des articles
 
                     <div class="card-content white-text">
                         <% if(facture.paye === true){ %>
-                            <div style="float:right;"><i class="material-icons">done</i></div>
+                            <div style="float:right;"><i class="material-icons" style="font-size: 2.5rem;" >done</i></div>
                         <% } %>
-                        <div class="card-title" style="margin-bottom: 10px; font-size: xx-large;">Facture de <b><%= facture.client %></b></div>
+                        <div class="card-title" style="margin-bottom: 10px; font-size: xx-large;">Facture de <b><%= facture.client %></b><% if(facture.paye === true){ %> <i style="font-size: 20px;">(payée)</i> <% } %></div>
                         
                         <div style="margin-bottom: 10px;">
                             <div style="float:left; width:40%;">N° <%= facture.id %></div>
@@ -88,13 +88,13 @@ Possibilité d'ajouter des articles
                     </div>
                     <div class="card-action">
                         <% if(facture.paye === false){ %>
-                            <a class="btn-floating green tooltipped" href="/finance/facture/signature/<%= facture.id %>" data-position="bottom" data-tooltip="Payer" data-delay="0"><i class="material-icons">playlist_add_check</i></a>
+                            <a class="btn-floating green tooltipped" href="/finance/facture/paye/<%= facture.id %>" data-position="bottom" data-tooltip="Payer" data-delay="0"><i class="material-icons">playlist_add_check</i></a>
                         <% } %>
                         <a class="btn-floating red tooltipped" href="/finance/facture/delete/<%= facture.id %>" data-position="bottom" data-tooltip="Supprimer" data-delay="0"><i class="material-icons">delete</i></a>
                         <a class="btn-floating teal accent-4 tooltipped" href="/finance/facture/download/<%= facture.id %>" data-position="bottom" data-tooltip="Aperçu" data-delay="0"><i class="material-icons">remove_red_eye</i></a>
                         <% if((facture.date < new Date()) && (facture.paye === false)){ %>
                             <!-- <a class="btn-floating red tooltipped" href="/finance/facture/signature/<%= facture.id %>" data-position="bottom" data-tooltip="Payer" data-delay="0"><i class="material-icons">playlist_add_check</i></a> -->
-                            <a class="btn-floating yellow darken-2 tooltipped" data-position="bottom" data-tooltip="Envoyer un rappel" data-delay="0" href="/finance/facture/email/<%= facture.id %>"><i class="material-icons">mail</i></a>
+                            <a class="btn-floating yellow darken-2 tooltipped" data-position="bottom" data-tooltip="Envoyer un rappel" data-delay="0" href="/finance/facture/emailRappel/<%= facture.id %>"><i class="material-icons">mail</i></a>
                         <% } %>
                     </div>
                 </div>

@@ -68,10 +68,10 @@ Possibilité d'ajouter des articles
 
 <nav id="navbar">
     <div class="nav-wrapper" style="background-color: #00A896;">
-        <% if(devi.factureExist == null){ %>
-            <a href="#!" class="brand-logo"><div class="material-icons">receipt</div>FACTURES</a>
-         <% } else{ %>
+        <% if(infos.isDevis === true){ %>
             <a href="#!" class="brand-logo"><div class="material-icons">calculate</div>DEVIS</a>
+            <% } else{ %>
+            <a href="#!" class="brand-logo"><div class="material-icons">receipt</div>FACTURES</a>
         <% } %>
         <ul class="right hide-on-med-and-down">
             <li><a href="/finance"><i class="material-icons tooltipped" data-position="bottom" data-tooltip="Accueil" data-delay="0">home</i></a></li>
@@ -89,19 +89,19 @@ Possibilité d'ajouter des articles
         <div class="col s12">
             <div class="row">
                 <div class="col s12">
-                    <% if(devi.factureExist == null){ %>
-                        <center><h5>FACTURE</h5><span>n° <%= devi.id %></span></center>
-                     <% } else{ %>
-                        <center><h5>DEVIS</h5><span>n° <%= devi.id %></span></center>
+                    <% if(infos.isDevis === true){ %>
+                        <center><h5>DEVIS</h5><span>n° <%= infos.devis.id %></span></center>
+                    <% } else{ %>
+                        <center><h5>FACTURE</h5><span>n° <%= infos.devis.id %></span></center>
                     <% } %>
                 </div>
             </div>
             <div class="row">
-                <div class="col s12">
-                    <h6>VENDEUR :</h6>
+                <div class="col s6">
                     <table>
                         <tbody>
                             <tr>
+                                <th>VENDEUR :</th>
                                 <th>MedicHome</th>
                             </tr>
                             <tr>
@@ -122,32 +122,36 @@ Possibilité d'ajouter des articles
             </div>
             <div class="row">
                 <div class="col s6 offset-s6">
-                    <h6>CLIENT :</h6>
                     <table>
                         <tbody>
                             <tr>
-                                <th><%= devi.client %></th>
+                                <th>CLIENT :</th>
+                                <th><%= infos.devis.client %></th>
                             </tr>
                             <tr>
                                 <th>Adresse</th>
-                                <td>adresse du client</td>
+                                <td><%= infos.adresseClient %></td>
+                            </tr>
+                            <tr>
+                                <th>Email</th>
+                                <td><%= infos.emailClient %></td>
                             </tr>
                             <tr>
                                 <th>Téléphone</th>
-                                <td>telephonne du client</td>
+                                <td><%= infos.telephoneClient %></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
             <div class="row">
-                <div class="col s12">
+                <div class="col s6">
                     <table>
                         <thead><tr></tr></thead>
                         <thead>
                             <tr>
                                 <th>Date de fin de validité</th>
-                                <td><%= devi.date.toDateString() %></td>
+                                <td><%= infos.devis.date.toDateString() %></td>
                             </tr>
                         </thead>
                     </table>
@@ -169,11 +173,17 @@ Possibilité d'ajouter des articles
                 
                         <thead>
                           <tr>
-                            <td><%= devi.description %></td>
-                            <td><%= devi.quantite %></td>
-                            <td><%= devi.prix %> €</td>
-                            <td><%= devi.reduction %> €</td>
-                            <td><%= devi.totalHT %> €</td>
+                            <td><%= infos.devis.description %></td>
+                            <td><%= infos.devis.quantite %></td>
+                            <td><%= infos.devis.prix %> €</td>
+                            <td> 
+                                <% if(infos.devis.reduction == null){ %>
+                                    ---
+                                <% } else{ %>
+                                    <%= infos.devis.reduction %> €
+                                <% } %>
+                            </td>
+                            <td><%= infos.devis.totalHT %> €</td>
                           </tr>
                         </thead>
                     </table>
@@ -186,19 +196,19 @@ Possibilité d'ajouter des articles
                         <thead>
                             <tr>
                                 <th>Total HT</th>
-                                <td><%= devi.totalHT %> €</td>
+                                <td><%= infos.devis.totalHT %> €</td>
                             </tr>
                         </thead>
                         <thead>
                             <tr>
                                 <th>TVA</th>
-                                <td><%= devi.tva %> %</td>
+                                <td><%= infos.devis.tva %> %</td>
                             </tr>
                         </thead>
                         <thead>
                             <tr>
                                 <th>Total TTC</th>
-                                <td><%= devi.totalTTC %> €</td>
+                                <td><%= infos.devis.totalTTC %> €</td>
                             </tr>
                         </thead>
                     </table>
@@ -211,7 +221,11 @@ Possibilité d'ajouter des articles
                     </a>
                     <ul>
                       <li><a class="btn-floating blue tooltipped" data-position="top" data-tooltip="Télécharger" data-delay="0" id="print" onclick="MonDisplay()"><i class="material-icons">file_download</i></a></li>
-                      <li><a class="btn-floating yellow darken-1 tooltipped" data-position="top" data-tooltip="Envoyer par mail" data-delay="0" href="/finance/devis/email/<%= devi.id %>"><i class="material-icons">mail</i></a></li>
+                      <% if(infos.isDevis === true){ %>
+                        <li><a class="btn-floating yellow darken-1 tooltipped" data-position="top" data-tooltip="Envoyer par mail" data-delay="0" href="/finance/devis/email/<%= infos.devis.id %>"><i class="material-icons">mail</i></a></li>
+                        <% } else{ %>
+                        <li><a class="btn-floating yellow darken-1 tooltipped" data-position="top" data-tooltip="Envoyer par mail" data-delay="0" href="/finance/facture/email/<%= infos.devis.id %>"><i class="material-icons">mail</i></a></li>
+                    <% } %>
                     </ul>
                   </div>
             </div>

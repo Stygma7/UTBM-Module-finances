@@ -71,7 +71,12 @@ Possibilité d'ajouter des articles
                             <span class="col s2">Quantité : <b><%= devi.quantite %></b></span>
                             <span class="col s2">Prix : <b><%= devi.prix  %> €</b></span>
                             <span class="col s2">TVA : <b><%= devi.tva  %> %</b></span>
-                            <span class="col s2">Reduction : <b><%= devi.reduction  %> €</b></span>
+                            <span class="col s2">Reduction : <b>
+                                <% if(devi.reduction == null){ %>
+                                    ---
+                                <% } else{ %>
+                                    <%= devi.reduction %> €
+                                <% } %></b></span>
                             <span class="col s2">Total HT : <b><%= devi.totalHT  %> €</b></span>
                             <span class="col s2">Total TTC : <b><%= devi.totalTTC  %> €</b></span>
                         </div>

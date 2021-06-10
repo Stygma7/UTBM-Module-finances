@@ -27,7 +27,38 @@ app.use('/finance/facture', FacturesController);
 require('../Models/dbConfig');
 require('../Routes/DevisController');
 
+
+global.access_token = null;
+
 app.get('/finance', (req,res) => {
+    var request = require('request');
+
+    var headers = {
+        'accept': 'application/json',
+        'Content-Type': 'application/x-www-form-urlencoded'
+    };
+
+    var dataString = 'grant_type=&username=finances&password=finances!&scope=seller%20manager&client_id=&client_secret=';
+
+    var options = {
+        url: 'https://ta70-sales-backend.herokuapp.com/security/token',
+        method: 'POST',
+        headers: headers,
+        body: dataString
+    };
+
+    async function callback_token(error, response, body) {
+        if (!error && response.statusCode == 200) {
+            var rep = JSON.parse(body);
+            access_token = rep.access_token;
+            console.log(access_token);
+        }
+    }
+
+    request(options, callback_token);
+
+
+
     res.render("accueil");
 });
 
