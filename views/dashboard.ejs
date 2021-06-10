@@ -42,15 +42,30 @@
         <div style="width: 60%">
             <canvas id="myChart4" width="400" height="400"></canvas>
         </div>
+
+        <br>
+        
+        <div style="width: 60%">
+            <canvas id="myChart5" width="400" height="400"></canvas>
+        </div>
     </div>
     
     <script>
         var totalHT = [];
         var totalTTC = [];
         var quantite = [];
+
         var date = [];
+        var dateFacture = [];
+
         var nbDevis = [];
         var total = [];
+
+        var tabSignePaye = [];
+        var tabNonSignePaye = [];
+        
+        var CA = [];
+
         <%
         function returnStringDate(dt) {
             let d = new Date(dt);
@@ -91,19 +106,45 @@
 
         var nbTotalFacture = 0;
         var nbTotalFacturePaye = 0;
+
         <% factures.forEach(function(facture) {%>
+            var month = '<%= returnStringDate(facture.dateCreation) %>';
+            var index = dateFacture.indexOf(month);
+
+
+
             if(<%= facture.paye %>==true){
                 nbTotalFacturePaye++;
+
+                if(index===-1){
+                    dateFacture.push(month);
+                    CA.push(<%= facture.totalHT %>);
+                } else {
+                    CA.splice(index, 1, CA[index]+<%= facture.totalHT %>);
+                }
+
             }else{
                 nbTotalFacture++;
             }
         <% }); %>
+
+
+
+
         console.log(nbTotalDevis);
         console.log(nbTotalDevisSigne);
+
         total.push(nbTotalDevis);
         total.push(nbTotalDevisSigne);
         total.push(nbTotalFacture);
         total.push(nbTotalFacturePaye);
+
+        // tabDevis.push(nbTotalDevis + nbTotalDevisSigne);
+        tabSignePaye.push(nbTotalDevisSigne);
+        tabSignePaye.push(nbTotalFacturePaye);
+
+        tabNonSignePaye.push(nbTotalDevis);
+        tabNonSignePaye.push(nbTotalFacture);
 
         Chart.defaults.plugins.title.display = true;
         Chart.defaults.plugins.title.text = 'Données devis';
@@ -148,7 +189,7 @@
                     backgroundColor: 'rgba(255, 99, 132, 0.2)',
                     borderColor: 'rgb(255, 99, 132)',
                     // tension: 0.1,
-                    borderWidth: 2
+                    borderWidth: 4
                 }]
             },
             options: {
@@ -166,10 +207,10 @@
         var myChart3 = new Chart(ctx3, {
             type: 'line',
             data: {
-                labels: date,
+                labels: dateFacture,
                 datasets: [{
-                    label: 'Prix',
-                    data: totalTTC,
+                    label: 'Chiffre d\'affaire',
+                    data: CA,
                     borderColor: 'rgb(255, 99, 132)',
                     borderWidth: 4
                     // tension: 0.1,
@@ -203,6 +244,42 @@
                 plugins: {
                     legend: {
                         position: 'top',
+                    }
+                }
+            }
+        });
+
+        Chart.defaults.plugins.title.text = 'Chart Antoine';
+        var ctx5 = document.getElementById('myChart5').getContext('2d');
+        var myChart5 = new Chart(ctx5, {
+            type: 'bar',
+            data: {
+                labels: ['Devis', 'Factures'],
+                datasets: [
+                    {
+                        label: 'Signé/Payé',
+                        data: tabSignePaye,
+                        backgroundColor: 'rgba(26, 196, 0, 0.5)',
+                        borderColor: 'rgb(26, 196, 0)',
+                        borderWidth: 4
+                    },
+                    {
+                        label: 'Non Signé/Non Payé',
+                        data: tabNonSignePaye,
+                        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                        borderColor: 'rgb(255, 99, 132)',
+                        borderWidth: 4
+                    }
+                ]
+
+            },
+            options: {
+                scales: {
+                    x: {
+                        stacked: true,
+                    },
+                    y: {
+                        stacked: true
                     }
                 }
             }
