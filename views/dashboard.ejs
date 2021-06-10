@@ -26,40 +26,34 @@
         </nav>
     </div>
 
-    <div class="container">
-        <div style="width: 60%">
-            <canvas id="myChart" width="400" height="400"></canvas>
+    <div class="row">
+        <div class="col s6">
+            <div style="margin: 5%">
+                <canvas id="myChart" width="90%" height="50%"></canvas>
+            </div>
         </div>
-        
-        <div style="width: 60%">
-            <canvas id="myChart2" width="400" height="400"></canvas>
+        <div class="col s6">
+            <div style="margin: 5%;">
+                <canvas id="myChart2" width="90%" height="50%"></canvas>
+            </div>
         </div>
-
-        <div style="width: 60%">
-            <canvas id="myChart3" width="400" height="400"></canvas>
-        </div>
-
-        <div style="width: 60%">
-            <canvas id="myChart4" width="400" height="400"></canvas>
-        </div>
-
-        <br>
-        
-        <div style="width: 60%">
-            <canvas id="myChart5" width="400" height="400"></canvas>
+    </div>
+    
+    <div class="row">
+        <div class="col s12">
+            <div style="margin-left: 27%; margin-right: 27%;">
+                <canvas id="myChart3" width="90%" height="50%"></canvas>
+            </div>
         </div>
     </div>
     
     <script>
         var totalHT = [];
-        var totalTTC = [];
-        var quantite = [];
 
-        var date = [];
+        var dateDevis = [];
         var dateFacture = [];
 
         var nbDevis = [];
-        var total = [];
 
         var tabSignePaye = [];
         var tabNonSignePaye = [];
@@ -69,32 +63,23 @@
         <%
         function returnStringDate(dt) {
             let d = new Date(dt);
-            //let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
             let mo = new Intl.DateTimeFormat('en', { month: 'long' }).format(d);
-            //let da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(d);
             return `${mo}`;
         } %>
         var nbTotalDevis = 0;
         var nbTotalDevisSigne = 0;
         <% devis.forEach(function(devi) {%>
             var month = '<%= returnStringDate(devi.dateCreation) %>';
-            var index = date.indexOf(month);
-            quantite.push(<%= devi.quantite %>);
+            var index = dateDevis.indexOf(month);
 
             if(index===-1){
-                date.push(month);
-                totalTTC.push(<%= devi.totalTTC %>);
+                dateDevis.push(month);
                 totalHT.push(<%= devi.totalHT %>);
                 nbDevis.push(1);
             } else {
-                totalTTC.splice(index, 1, totalTTC[index]+<%= devi.totalTTC %>);
                 totalHT.splice(index, 1, totalHT[index]+<%= devi.totalHT %>);
                 nbDevis.splice(index, 1, nbDevis[index]+1);
             }
-            /*console.log(date);
-            console.log(totalTTC);
-            console.log(totalHT);
-            console.log(nbDevis);*/
 
             if(<%= devi.signe %>==true){
                 nbTotalDevisSigne++;
@@ -129,17 +114,6 @@
         <% }); %>
 
 
-
-
-        console.log(nbTotalDevis);
-        console.log(nbTotalDevisSigne);
-
-        total.push(nbTotalDevis);
-        total.push(nbTotalDevisSigne);
-        total.push(nbTotalFacture);
-        total.push(nbTotalFacturePaye);
-
-        // tabDevis.push(nbTotalDevis + nbTotalDevisSigne);
         tabSignePaye.push(nbTotalDevisSigne);
         tabSignePaye.push(nbTotalFacturePaye);
 
@@ -147,69 +121,61 @@
         tabNonSignePaye.push(nbTotalFacture);
 
         Chart.defaults.plugins.title.display = true;
+
         Chart.defaults.plugins.title.text = 'Données devis';
         var ctx = document.getElementById('myChart').getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: date,
+                labels: dateDevis,
                 datasets: [{
-                    label: 'Prix TTC',
-                    data: totalTTC,
+                    label: 'Prix HT',
+                    data: totalHT,
                     borderColor: 'rgb(255, 99, 132)',
-                    borderWidth: 4
-                    // tension: 0.1,
+                    borderWidth: 4,
+                    yAxisID: 'y'
                 },
                 {
                     label: 'Nombre de Devis',
                     data: nbDevis,
                     borderColor: 'rgb(75, 192, 192)',
-                    borderWidth: 4
-                    // tension: 0.1,
+                    borderWidth: 4,
+                    yAxisID: 'y1'
                 }]
             },
             options: {
                 scales: {
                     y: {
+                        title: {
+                            display: true,
+                            text: 'Prix HT'
+                        },
                         beginAtZero: true
+                    },
+                    y1: {
+                        title: {
+                            display: true,
+                            text: 'Nombre de devis'
+                        },
+                        type: 'linear',
+                        display: true,
+                        position: 'right',
+                        ticks: {
+                            stepSize: 1
+                        }
                     }
                 }
             }
         });
 
-        Chart.defaults.plugins.title.text = 'Total HT Devis';
+        Chart.defaults.plugins.title.text = 'Chiffre d\'affaire par mois';
         var ctx2 = document.getElementById('myChart2').getContext('2d');
         var myChart2 = new Chart(ctx2, {
-            type: 'bar',
-            data: {
-                labels: date,
-                datasets: [{
-                    label: 'Total HT ',
-                    data: totalHT,
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                    borderColor: 'rgb(255, 99, 132)',
-                    // tension: 0.1,
-                    borderWidth: 4
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-
-
-        Chart.defaults.plugins.title.text = 'Nombre Devis';
-        var ctx3 = document.getElementById('myChart3').getContext('2d');
-        var myChart3 = new Chart(ctx3, {
             type: 'line',
             data: {
                 labels: dateFacture,
                 datasets: [{
-                    label: 'Chiffre d\'affaire',
+                    label: 'CA',
                     data: CA,
                     borderColor: 'rgb(255, 99, 132)',
                     borderWidth: 4
@@ -225,33 +191,9 @@
             }
         });
 
-        Chart.defaults.plugins.title.text = 'Nombre Total de Devis : '+ (total[0]+total[1])+'  Nombre Total de Factures : '+ (total[2]+total[3]);
-        var ctx4 = document.getElementById('myChart4').getContext('2d');
-        var myChart4 = new Chart(ctx4, {
-            type: 'pie',
-            data: data = {
-                labels: ['nbTotalDevisNonSigné', 'nbTotalDevisSigné', 'nbTotalFactureNonPayé', 'nbTotalFacturePayé'],
-                datasets: [
-                    {
-                        label: 'Dataset 1',
-                        data: total,
-                        backgroundColor: ['Red', 'Orange', 'Yellow', 'Green', 'Blue'],
-                    }
-                ],
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'top',
-                    }
-                }
-            }
-        });
-
-        Chart.defaults.plugins.title.text = 'Chart Antoine';
-        var ctx5 = document.getElementById('myChart5').getContext('2d');
-        var myChart5 = new Chart(ctx5, {
+        Chart.defaults.plugins.title.text = 'Répartition des devis et des factures';
+        var ctx3 = document.getElementById('myChart3').getContext('2d');
+        var myChart3 = new Chart(ctx3, {
             type: 'bar',
             data: {
                 labels: ['Devis', 'Factures'],
