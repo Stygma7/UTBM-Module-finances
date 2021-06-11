@@ -48,7 +48,7 @@ Possibilité d'ajouter des articles
         <% } %>
         <div class="row">
             <div class="col s12">
-                <form action="/finance/devis/send" method="POST">
+                <form action="/finance/devis/send" method="POST" enctype="multipart/form-data">
                     <div class="row">
                         <div class="input-field col s12">
                             <% if(infos.email == null){ %>
@@ -77,7 +77,7 @@ Possibilité d'ajouter des articles
                             <div class = "file-field input-field">
                                <div class = "btn">
                                   <span>Choisir un fichier</span>
-                                  <input type = "file" />
+                                  <input type = "file" name="avatar" />
                                </div>
                                
                                <div class = "file-path-wrapper">

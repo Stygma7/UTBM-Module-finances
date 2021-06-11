@@ -1,6 +1,21 @@
 const { ObjectID } = require('bson');
 const express = require('express');
+
+const multer = require('multer');
+const uuid = require('uuid').v4;
 const router = express.Router();
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads');
+    },
+    filename: (req, file, cb) => {
+        const { originalname } = file;
+        cb(null, originalname);
+    }
+})
+const upload = multer({ storage });
+
 const app = express();
 const bodyParser = require('body-parser');
 
@@ -193,7 +208,8 @@ router.get('/emailRappel/:id', (req, res) => {
 
 
 //----------------/send----------------------------------------------------//
-router.post('/send', (req, res) => {
+router.post('/send', upload.single('avatar'), (req, res) => {
+
     console.log([DLPath + req.body.fichierDevis]);
     let mailContent={
         from: '"noreply" <noreply.finances.ta70>',
