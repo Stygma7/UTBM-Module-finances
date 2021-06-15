@@ -70,9 +70,7 @@ router.get('/new', (req, res) => {
 router.get('/view', (req, res) => {
     DevisModel.find((err, devis) => {
         if (!err) {
-            // res.send(docs);
             res.render("viewDevis", { devis: devis });
-            //console.log(devis[0].client);
         }
         else console.log("Error to get data : " + err);
     })
@@ -112,9 +110,7 @@ router.get('/email/:id', (req, res) => {
                         objet : 'Votre devis MedicHome',
                         message : 'Bonjour ' + devis.client + ',\n\nNous avons le plaisir de vous adresser votre devis en pièce jointe.\n\nBien cordialement,\nl\'équipe MedicHome.'
                     }
-                    //console.log(toto);
                     toto.forEach(element => {
-                        //console.log('Nom de la BD : ' + element.first_name + ' ; Nom recherché : ' + devis.client);
                         if(element.first_name == devis.client){
                             infos = {
                                 isDevis : true,
@@ -135,7 +131,6 @@ router.get('/email/:id', (req, res) => {
             
             request(options, callback);
             
-            //console.log(devis[0].client);
         } else console.log("Error to get data : " + err);
     })
 });
@@ -199,9 +194,7 @@ router.get('/apercu/:id', (req, res) => {
 
     DevisModel.findById(req.params.id, (err, devis) => {
         if (!err) {
-            // res.send(docs);
             res.render("updateDevis", { devis: devis });
-            //console.log(devis[0].client);
         }
         else console.log("Error to get data : " + err);
     })
@@ -293,9 +286,7 @@ router.get('/download/:id', (req, res) => {
                                 emailClient : null,
                                 telephoneClient : null
                             }
-                            //console.log(toto);
                             toto.forEach(element => {
-                                //console.log('Nom de la BD : ' + element.first_name + ' ; Nom recherché : ' + devis.client);
                                 if(element.first_name == devi.client){
                                     infos = {
                                         isDevis : true,

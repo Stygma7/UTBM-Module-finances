@@ -22,7 +22,6 @@
             function calculateTotal()
             {
             
-            //item_price.sugar = ($("#autocomplete-quantite").val() * $("#autocomplete-prix").val() )
             var prixHT = ($("#quantite").val() * $("#prix").val() - $("#reduction").val() )
             $("#total_ht").val(prixHT);
             var prixTTC =  prixHT + (prixHT * ($("#tva").val() / 100))
@@ -55,16 +54,9 @@
 
 </script>
 
- <!--https://pspdfkit.com/blog/2019/html-to-pdf-in-javascript/-->
 </head>
 
 <body>
-<!--
-Client (destinataire),
-Duree de validité (exemple calendrier ou bare),
-Arcticle : quantité, prix, tva, réduction, total HT, total TTC, description
-Possibilité d'ajouter des articles 
--->
 
 <nav id="navbar">
     <div class="nav-wrapper" style="background-color: #00A896;">

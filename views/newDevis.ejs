@@ -22,7 +22,6 @@
             function calculateTotal()
             {
             
-            //item_price.sugar = ($("#autocomplete-quantite").val() * $("#autocomplete-prix").val() )
             var prixHT = ($("#quantite").val() * $("#prix").val() - $("#reduction").val() )
             $("#total_ht").val(prixHT);
             var prixTTC =  prixHT + (prixHT * ($("#tva").val() / 100))
@@ -49,12 +48,6 @@
 
 </head>
 
-<!--
-Client (destinataire),
-Duree de validité (exemple calendrier ou bare),
-Arcticle : quantité, prix, tva, réduction, total HT, total TTC, description
-Possibilité d'ajouter des articles
--->
 <body>
 
     <nav>

@@ -22,12 +22,6 @@
 </head>
 
 <body>
-<!--
-Client (destinataire),
-Duree de validité (exemple calendrier ou bare),
-Arcticle : quantité, prix, tva, réduction, total HT, total TTC, description
-Possibilité d'ajouter des articles
--->
 
 <div class="navbar-fixed">
     <nav>
@@ -93,7 +87,6 @@ Possibilité d'ajouter des articles
                         <a class="btn-floating red tooltipped" href="/finance/facture/delete/<%= facture.id %>" data-position="bottom" data-tooltip="Supprimer" data-delay="0"><i class="material-icons">delete</i></a>
                         <a class="btn-floating teal accent-4 tooltipped" href="/finance/facture/download/<%= facture.id %>" data-position="bottom" data-tooltip="Aperçu" data-delay="0"><i class="material-icons">remove_red_eye</i></a>
                         <% if((facture.date < new Date()) && (facture.paye === false)){ %>
-                            <!-- <a class="btn-floating red tooltipped" href="/finance/facture/signature/<%= facture.id %>" data-position="bottom" data-tooltip="Payer" data-delay="0"><i class="material-icons">playlist_add_check</i></a> -->
                             <a class="btn-floating yellow darken-2 tooltipped" data-position="bottom" data-tooltip="Envoyer un rappel" data-delay="0" href="/finance/facture/emailRappel/<%= facture.id %>"><i class="material-icons">mail</i></a>
                         <% } %>
                     </div>

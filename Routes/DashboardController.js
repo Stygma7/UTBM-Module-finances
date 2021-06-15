@@ -12,8 +12,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 router.get('/', (req, res) => {
     DevisModel.find((err, devis) => {
         if (!err) {
-            // res.send(docs);
-            //console.log(devis[0].client);
             FactureModel.find((err, factures) => {
                 if (!err) {
                     res.render("dashboard", { devis: devis, factures: factures });

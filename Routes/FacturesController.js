@@ -293,9 +293,7 @@ router.get('/download/:id', (req, res) => {
                                 emailClient : null,
                                 telephoneClient : null
                             }
-                            //console.log(toto);
                             toto.forEach(element => {
-                                //console.log('Nom de la BD : ' + element.first_name + ' ; Nom recherché : ' + devis.client);
                                 if(element.first_name == devi.client){
                                     infos = {
                                         isDevis : false,
