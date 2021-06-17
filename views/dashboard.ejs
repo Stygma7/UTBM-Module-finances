@@ -93,16 +93,16 @@
         var nbTotalFacturePaye = 0;
 
         <% factures.forEach(function(facture) {%>
-            var monthf = '<%= returnStringDate(facture.dateCreation) %>';
-            var indexf = dateFacture.indexOf(monthf);
+            var month = '<%= returnStringDate(facture.dateCreation) %>';
+            var index = dateFacture.indexOf(month);
 
 
 
             if(<%= facture.paye %>==true){
                 nbTotalFacturePaye++;
 
-                if(indexf===-1){
-                    dateFacture.push(monthf);
+                if(index===-1){
+                    dateFacture.push(month);
                     CA.push(<%= facture.totalHT %>);
                 } else {
                     CA.splice(index, 1, CA[index]+<%= facture.totalHT %>);
@@ -120,9 +120,8 @@
         tabNonSignePaye.push(nbTotalDevis);
         tabNonSignePaye.push(nbTotalFacture);
 
-        Chart.defaults.plugins.title.display = true;
-
-        Chart.defaults.plugins.title.text = 'Données devis';
+        // Chart.defaults.plugins.title.display = true;
+        // Chart.defaults.plugins.title.text = 'Données devis';
         var ctx = document.getElementById('myChart').getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'line',
@@ -164,11 +163,17 @@
                             stepSize: 1
                         }
                     }
+                },
+                plugins: {
+                    title: {
+                    display: true,
+                    text: 'Données devis'
+                    }
                 }
             }
         });
 
-        Chart.defaults.plugins.title.text = 'Chiffre d\'affaire par mois';
+        // Chart.defaults.plugins.title.text = 'Chiffre d\'affaire par mois';
         var ctx2 = document.getElementById('myChart2').getContext('2d');
         var myChart2 = new Chart(ctx2, {
             type: 'line',
@@ -186,11 +191,17 @@
                     y: {
                         beginAtZero: true
                     }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Chiffre d\'affaire par mois'
+                    }
                 }
             }
         });
 
-        Chart.defaults.plugins.title.text = 'Répartition des devis et des factures';
+        // Chart.defaults.plugins.title.text = 'Répartition des devis et des factures';
         var ctx3 = document.getElementById('myChart3').getContext('2d');
         var myChart3 = new Chart(ctx3, {
             type: 'bar',
@@ -221,6 +232,12 @@
                     },
                     y: {
                         stacked: true
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Répartition des devis et des factures'
                     }
                 }
             }
