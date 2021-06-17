@@ -93,16 +93,16 @@
         var nbTotalFacturePaye = 0;
 
         <% factures.forEach(function(facture) {%>
-            var month = '<%= returnStringDate(facture.dateCreation) %>';
-            var index = dateFacture.indexOf(month);
+            var monthf = '<%= returnStringDate(facture.dateCreation) %>';
+            var indexf = dateFacture.indexOf(monthf);
 
 
 
             if(<%= facture.paye %>==true){
                 nbTotalFacturePaye++;
 
-                if(index===-1){
-                    dateFacture.push(month);
+                if(indexf===-1){
+                    dateFacture.push(monthf);
                     CA.push(<%= facture.totalHT %>);
                 } else {
                     CA.splice(index, 1, CA[index]+<%= facture.totalHT %>);
